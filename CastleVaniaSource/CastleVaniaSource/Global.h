@@ -40,9 +40,11 @@ extern struct Box
 	float x, y, w, h, vx, vy;
 };
 
+//cac bien duoc tham chieu duoc khai bao o  cap cao nhat (global). la tham chieu cua cac bien da duoc dinh nghia o ben global.cpp 
+
 extern bool isInitedDXGlobal; //kiem tra neu dx da duoc khoi tao
 extern int gameDepthGlobal; //chieu sau game
-extern int gameNameGlobal; //ten game
+extern char* gameNameGlobal;	 //ten game
 extern int frameRateGlobal; // (60)
 extern int colorModeGlobal;
 extern bool isFullScreenGlobal; //kiem tra che do cua so hay full
@@ -55,28 +57,16 @@ extern bool isBackgroundSoundGlobal; //kiem tra nhac nen cua map co dang phat
 extern bool isEffectSoundGlobal; //kiem tra nhac cua effect co dang phat
 extern int maxSizeGlobal;
 extern int minSizeGlobal;
-extern int State;
-extern int ReadFileNew;
-extern int PlayMusic;
-extern int AutoFit;
-extern int Floor;
-extern int OpeningTheGate;
-extern bool isOpenTheGate;
-extern int TestSource;
-extern int DrawInvisibleObject;
-extern int ShowBox;
-extern bool Test_Jump;
 extern RECT Window_Size;
 
 extern HINSTANCE hInstanceGlobal;
 extern HWND hWndGlobal;
-extern LPDIRECT3D9 directGlobal;
+extern LPDIRECT3D9 directXGlobal;
 extern LPDIRECT3DDEVICE9 deviceGlobal;
 extern LPDIRECT3DSURFACE9 backBufferGlobal;
 extern LPDIRECTINPUT8 directInputGlobal;
 extern LPDIRECTINPUTDEVICE8 keyboardGlobal;
 extern LPD3DXSPRITE spriteHandlerGlobal; //ve ket cau
-extern LPDIRECT3DSURFACE9 Surface;
 
 extern int currentFormGlobal;
 extern int nextFormGlobal;
