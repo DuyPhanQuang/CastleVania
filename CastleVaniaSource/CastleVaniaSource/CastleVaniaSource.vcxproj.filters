@@ -5,11 +5,17 @@
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
-    <Filter Include="Source Files\Utils">
-      <UniqueIdentifier>{910cf9be-2d57-4b0a-a9c2-61b67a2e93f6}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files">
       <UniqueIdentifier>{8c677302-a63c-4894-b5e0-e95e25073b28}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\common">
+      <UniqueIdentifier>{53605e9d-a6bb-472a-9c98-b4bb5f21464d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\common\Utils">
+      <UniqueIdentifier>{910cf9be-2d57-4b0a-a9c2-61b67a2e93f6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\common\Global">
+      <UniqueIdentifier>{35727a38-5a79-42bc-8d9c-873feb85f8f6}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -17,18 +23,24 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="SweptAABB.cpp">
-      <Filter>Source Files\Utils</Filter>
+      <Filter>Source Files\common\Utils</Filter>
     </ClCompile>
     <ClCompile Include="Global.cpp">
-      <Filter>Source Files\Utils</Filter>
+      <Filter>Source Files\common\Global</Filter>
+    </ClCompile>
+    <ClCompile Include="Utils.cpp">
+      <Filter>Source Files\common\Utils</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Global.h">
-      <Filter>Header Files</Filter>
+      <Filter>Source Files\common\Global</Filter>
     </ClInclude>
     <ClInclude Include="SweptAABB.h">
-      <Filter>Header Files</Filter>
+      <Filter>Source Files\common\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Utils.h">
+      <Filter>Source Files\common\Utils</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
