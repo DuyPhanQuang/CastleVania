@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="Utils.cpp">
+      <Filter>Helpers</Filter>
+    </ClCompile>
+    <ClCompile Include="Global.cpp">
+      <Filter>Helpers</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>WinMain</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Utils.h">
+      <Filter>Helpers</Filter>
+    </ClInclude>
+    <ClInclude Include="Global.h">
+      <Filter>Helpers</Filter>
+    </ClInclude>
+    <ClInclude Include="SweptAABB.h">
+      <Filter>Helpers</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Helpers">
+      <UniqueIdentifier>{948a8227-8a57-4c86-97ca-1c84b3bac025}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="WinMain">
+      <UniqueIdentifier>{98507159-985b-4dce-8d55-f1f885c7deec}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram.cd">
+      <Filter>Helpers</Filter>
+    </None>
+  </ItemGroup>
+</Project>
