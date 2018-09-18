@@ -44,7 +44,7 @@ extern struct Box
 
 extern bool isInitedDXGlobal; //kiem tra neu dx da duoc khoi tao
 extern int gameDepthGlobal; //chieu sau game
-extern char* gameNameGlobal;	 //ten game
+extern const char* gameNameGlobal;	 //ten game
 extern int frameRateGlobal; // (60)
 extern int colorModeGlobal;
 extern bool isFullScreenGlobal; //kiem tra che do cua so hay full

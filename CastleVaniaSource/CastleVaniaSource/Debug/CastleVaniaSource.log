@@ -1,2 +1,13 @@
-﻿  Main.cpp
-  CastleVaniaSource.vcxproj -> C:\Users\QuangDuy\Documents\CastleVania\CastleVaniaSource\Debug\CastleVaniaSource.exe
+﻿  Global.cpp
+  c:\program files (x86)\microsoft directx sdk (june 2010)\include\dinput.h: DIRECTINPUT_VERSION undefined. Defaulting to version 0x0800
+c:\users\quangduy\documents\castlevania\castlevaniasource\castlevaniasource\global.h(41): warning C4091: 'extern ': ignored on left of 'Box' when no variable is declared
+  Main.cpp
+  SweptAABB.cpp
+  c:\program files (x86)\microsoft directx sdk (june 2010)\include\dinput.h: DIRECTINPUT_VERSION undefined. Defaulting to version 0x0800
+c:\users\quangduy\documents\castlevania\castlevaniasource\castlevaniasource\global.h(41): warning C4091: 'extern ': ignored on left of 'Box' when no variable is declared
+  Utils.cpp
+  Generating Code...
+c:\users\quangduy\documents\castlevania\castlevaniasource\castlevaniasource\sweptaabb.cpp(144): warning C4715: 'Collide': not all control paths return a value
+Utils.obj : error LNK2019: unresolved external symbol _D3DXGetImageInfoFromFileA@8 referenced in function "struct IDirect3DSurface9 * __cdecl CreateSurfaceFromFile(struct IDirect3DDevice9 *,char *)" (?CreateSurfaceFromFile@@YAPAUIDirect3DSurface9@@PAUIDirect3DDevice9@@PAD@Z)
+Utils.obj : error LNK2019: unresolved external symbol _D3DXLoadSurfaceFromFileA@32 referenced in function "struct IDirect3DSurface9 * __cdecl CreateSurfaceFromFile(struct IDirect3DDevice9 *,char *)" (?CreateSurfaceFromFile@@YAPAUIDirect3DSurface9@@PAUIDirect3DDevice9@@PAD@Z)
+C:\Users\QuangDuy\Documents\CastleVania\CastleVaniaSource\Debug\CastleVaniaSource.exe : fatal error LNK1120: 2 unresolved externals

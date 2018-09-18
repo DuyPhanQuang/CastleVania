@@ -17,6 +17,9 @@
     <Filter Include="Source Files\common\Global">
       <UniqueIdentifier>{35727a38-5a79-42bc-8d9c-873feb85f8f6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Framework">
+      <UniqueIdentifier>{ec30280b-8bb3-4c0c-8010-57cdc01f68a5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">

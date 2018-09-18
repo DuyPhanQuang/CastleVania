@@ -3,13 +3,18 @@
 #include <d3d9.h>
 #include <d3dx9.h>
 #include <dinput.h>
+#include <string>
+
+using namespace std;
 
 int currentFormGlobal;
 int nextFormGlobal;
 
 bool isInitedDXGlobal = false;
 int gameDepthGlobal;
-char* gameNameGlobal = "abc Va";
+string name = "Castle vania";
+const char* gameNameGlobal = name.c_str();
+//wstring q = UTF8toWide(gameNameGlobal);
 int frameRateGlobal = 60;
 int colorModeGlobal;
 bool isFullScreenGlobal = false;
@@ -28,13 +33,14 @@ HINSTANCE hInstanceGlobal;
 HWND hWndGlobal;
 LPDIRECT3D9 directGlobal;
 LPDIRECT3DDEVICE9 deviceGlobal;
-LPDIRECT3DSURFACE9 backBufferFormatGlobal;
+LPDIRECT3DSURFACE9 backBufferGlobal;
 LPDIRECTINPUT8 directInputGlobal;
 LPDIRECTINPUTDEVICE8 keyboardGlobal;
 LPD3DXSPRITE spriteHandlerGlobal;
 
 void GlobalTrace(char* format, ...) {
-	char* _traceFile = "C:\\Temp\\Sample_TH_game.log";
+	string name = "C:\\Temp\\Sample_TH_game.log";
+	const char* _traceFile = name.c_str();
 	int _traEnumManager = 1;
 	if (!_traEnumManager) return;
 	FILE *f = stderr;
