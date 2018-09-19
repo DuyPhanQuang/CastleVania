@@ -1,8 +1,9 @@
-#ifndef _SWEPTAABB_
-#define _SWEPTAABB_
-
+#ifndef _SWEPT_AABB_H
+#define _SWEPT_AABB_H
+#define min(a,b)            (((a) < (b)) ? (a) : (b))
+#define max(a,b)            (((a) > (b)) ? (a) : (b))
 #include <cmath>
-#include <algorithm>
+#include <algorithm> 
 #include <limits>
 // describes an axis-aligned rectangle with a velocity
 struct Box
@@ -27,37 +28,39 @@ struct Box
 		vy = 0.0f;
 	}
 
-	// position of top-left corner
+	// toa do
 	float x, y;
 
-	// dimensions
+	// chieu dai, chieu rong
 	float w, h;
 
-	// velocity
+	// van toc
 	float vx, vy;
 };
 
 static bool AABBCheck(Box b1, Box b2)
 {
-	return !(b1.x + b1.w < b2.x || b1.x > b2.x + b2.w || b1.y - b1.h > b2.y || b1.y < b2.y - b2.h);
+	return !(b1.x + b1.w < b2.x || b1.x > b2.x + b2.w || b1.y + b1.h < b2.y || b1.y > b2.y + b2.h);
 }
 
+// returns true if the boxes are colliding (velocities are not used)
+// moveX and moveY will return the movement the b1 must move to avoid the collision
 static bool AABB(Box b1, Box b2, float& moveX, float& moveY)
 {
 	moveX = moveY = 0.0f;
 
-	float l = b2.x - (b1.x + b1.w);
-	float r = (b2.x + b2.w) - b1.x;
-	float t = b2.y - (b1.y - b1.h);
-	float b = (b2.y - b2.h) - b1.y;
+	float left = b2.x - (b1.x + b1.w);
+	float right = (b2.x + b2.w) - b1.x;
+	float top = b2.y - (b1.y + b1.h);
+	float bottom = (b2.y - b2.h) - b1.y;
 
 	// check that there was a collision
-	if (l > 0 || r < 0 || t < 0 || b > 0)
+	if (left > 0 || right < 0 || top > 0 || bottom < 0)
 		return false;
 
 	// find the offset of both sides
-	moveX = abs(l) < r ? l : r;
-	moveY = abs(b) < t ? b : t;
+	moveX = abs(left) < right ? left : right;
+	moveY = abs(top) < bottom ? top : bottom;
 
 	// only use whichever offset is the smallest
 	if (abs(moveX) < abs(moveY))
@@ -68,8 +71,7 @@ static bool AABB(Box b1, Box b2, float& moveX, float& moveY)
 	return true;
 }
 
-// returns a box the spans both a current box and the destination box
-// t?o 1 hình ch? nh?t d?a trên v? trí ban ??u và k? ti?p, sau ?ó l?y hình ch? nh?t ?ó xét xem có ch?ng lên v?i hình kia không. N?u có thì va ch?m, còn không thì ch?c ch?n không th? nên không c?n xét ti?p.
+// tao 1 hcn dua trên vi tri ban dau và ke tiep, sau do lay hcn do xet xem co chong len voi hinh kia ko. neu co thi va cham, ko thì ko xet tiep.
 static Box GetSweptBroadphaseBox(Box b, int dt)
 {
 	Box broadphasebox(0.0f, 0.0f, 0.0f, 0.0f);
@@ -91,9 +93,7 @@ static float SweptAABB(Box b1, Box b2, float& normalx, float& normaly, int dt)
 	float xInvEntry, yInvEntry;
 	float xInvExit, yInvExit;
 
-	// find the distance between the objects on the near and far sides for both x and y
-
-	// ??ng b? d?u cho cùng h??ng thôi
+	//tinh khoang cach can xay ra va cham xInvEntry va khoang cach de ra khoi va cham xInvExit
 	if (b1.vx > 0.0f)
 	{
 		xInvEntry = b2.x - (b1.x + b1.w);
@@ -118,7 +118,7 @@ static float SweptAABB(Box b1, Box b2, float& normalx, float& normaly, int dt)
 
 	// find time of collision and time of leaving for each axis (if statement is to prevent divide by zero)
 
-	//tìm th?i gian ?? b?t ??u và k?t thúc va ch?m :
+	//tinh time de bat dau va cham va time ket thuc va cham theo moi phuong :
 	float xEntry, yEntry;
 	float xExit, yExit;
 
@@ -144,45 +144,45 @@ static float SweptAABB(Box b1, Box b2, float& normalx, float& normaly, int dt)
 		yExit = yInvExit / (b1.vy * dt);
 	}
 
-  // th?i gian va ch?m là th?i gian l?n nh?t c?a 2 tr?c (2 tr?c ph?i cùng ti?p xúc thì m?i va ch?m)
+	// thoi gian va cham la thoi gian lon nhat cua 2 truc (2 truc phai cung tiep xuc thi moi va cham)
 
 	float entryTime = max(xEntry, yEntry);
-// th?i gian h?t va ch?m là th?i gian c?a 2 tr?c, (1 cái ra kh?i là object h?t va ch?m)
+	// thoi gian ket thuc va cham la thoi gian cua 2 truc, (chi can 1 truc roi khoi va cham)
 	float exitTime = min(xExit, yExit);
 
-	// if there was no collision
+	// neu ko co va cham
 	if (entryTime > exitTime || xEntry < 0.0f && yEntry < 0.0f || xEntry > 1.0f || yEntry > 1.0f)
 	{
 		normalx = 0.0f;
 		normaly = 0.0f;
 		return 1.0f;
 	}
-	else // if there was a collision
+	else
 	{
-		// calculate normal of collided surface
+		// xac dinh huong cua phap tuyen khi va cham
 		if (xEntry > yEntry)
 		{
-			if (xInvEntry < 0.0f)
+			if (xInvEntry < 0.0f) //cham vao be mat ben phai
 			{
 				normalx = 1.0f;
 				normaly = 0.0f;
 			}
 			else
 			{
-				normalx = -1.0f;
+				normalx = -1.0f; //cham vao be mat ben trai
 				normaly = 0.0f;
 			}
 		}
 		else
 		{
-			if (yInvEntry < 0.0f)
+			if (yInvEntry < 0.0f) //cham vao be mat phia tren 
 			{
 				normalx = 0.0f;
 				normaly = 1.0f;
 			}
 			else
 			{
-				normalx = 0.0f;
+				normalx = 0.0f; //cham vao be mat phia duoi
 				normaly = -1.0f;
 			}
 		}
