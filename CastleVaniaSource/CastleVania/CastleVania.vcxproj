@@ -86,14 +86,19 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Global.cpp" />
+    <ClCompile Include="Graphics.cpp" />
+    <ClCompile Include="GSprite.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Utils.cpp" />
+    <ClCompile Include="ViewPort.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Global.h" />
+    <ClInclude Include="define.h" />
+    <ClInclude Include="Graphics.h" />
+    <ClInclude Include="GSprite.h" />
     <ClInclude Include="SweptAABB.h" />
     <ClInclude Include="Utils.h" />
+    <ClInclude Include="ViewPort.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -4,22 +4,37 @@
     <ClCompile Include="Utils.cpp">
       <Filter>Utils</Filter>
     </ClCompile>
-    <ClCompile Include="Global.cpp">
-      <Filter>Utils</Filter>
-    </ClCompile>
     <ClCompile Include="main.cpp">
       <Filter>WinMain</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics.cpp">
+      <Filter>Framework\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="GSprite.cpp">
+      <Filter>Framework\GSprite</Filter>
+    </ClCompile>
+    <ClCompile Include="ViewPort.cpp">
+      <Filter>Framework\Transform</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Utils.h">
       <Filter>Utils</Filter>
     </ClInclude>
-    <ClInclude Include="Global.h">
-      <Filter>Utils</Filter>
-    </ClInclude>
     <ClInclude Include="SweptAABB.h">
       <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics.h">
+      <Filter>Framework\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="define.h">
+      <Filter>Config</Filter>
+    </ClInclude>
+    <ClInclude Include="GSprite.h">
+      <Filter>Framework\GSprite</Filter>
+    </ClInclude>
+    <ClInclude Include="ViewPort.h">
+      <Filter>Framework\Transform</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -28,6 +43,21 @@
     </Filter>
     <Filter Include="Utils">
       <UniqueIdentifier>{948a8227-8a57-4c86-97ca-1c84b3bac025}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework">
+      <UniqueIdentifier>{78178cd2-44ab-4234-a4fe-9d153dc73d36}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Graphics">
+      <UniqueIdentifier>{4433218a-924c-4edb-8524-d9b66ef773f5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Config">
+      <UniqueIdentifier>{ce9459d1-7142-4cab-a7f0-9668c77a22dc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\GSprite">
+      <UniqueIdentifier>{08369ad0-a600-4ff4-a270-6f2531eb526f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Transform">
+      <UniqueIdentifier>{10b0ca0f-5a4c-495d-8c80-66bb47dc2350}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
