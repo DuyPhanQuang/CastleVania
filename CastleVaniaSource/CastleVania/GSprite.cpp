@@ -103,7 +103,7 @@ LPDIRECT3DTEXTURE9 Sprite::LoadTexture(LPDIRECT3DDEVICE9 device, const char *fil
 	);
 
 	if (FAILED(result))
-		return NULL;
+		return NULL; //ko load duoc texture	
 	return texture;
 }
 

@@ -86,6 +86,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="DGame.cpp" />
+    <ClCompile Include="DSprites.cpp" />
+    <ClCompile Include="dsutil.cpp" />
+    <ClCompile Include="dxutil.cpp" />
+    <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="Graphics.cpp" />
     <ClCompile Include="GSprite.cpp" />
     <ClCompile Include="main.cpp" />
@@ -94,6 +99,11 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="define.h" />
+    <ClInclude Include="DGame.h" />
+    <ClInclude Include="DSprites.h" />
+    <ClInclude Include="dsutil.h" />
+    <ClInclude Include="dxutil.h" />
+    <ClInclude Include="GameObject.h" />
     <ClInclude Include="Graphics.h" />
     <ClInclude Include="GSprite.h" />
     <ClInclude Include="SweptAABB.h" />

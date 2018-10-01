@@ -30,7 +30,7 @@ public:
 	~Graphics();
 	//khoi tao doi tuong directx graphics
 
-	bool Initialize(HWND hw);
+	bool Init(HWND hw);
 	//cac method ve len device
 
 	void Clear();

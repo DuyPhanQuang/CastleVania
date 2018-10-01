@@ -18,7 +18,13 @@ Graphics::~Graphics() {
 }
 
 //khoi tao DirectX graphics
-bool Graphics::Initialize(HWND hw) {
+/*
+	Initialize DirectX, create a Direct3D device for rendering within the window, initial Sprite library for
+	rendering 2D images
+	- hInst: Application instance handle
+	- hWnd: Application window handle
+*/
+bool Graphics::Init(HWND hw) {
 	color = D3DCOLOR_XRGB(0, 0, 0);
 	hWnd = hw;
 	fullscreen = FULLSCREEN;
@@ -79,7 +85,7 @@ void Graphics::InitD3Dpp() {
 
 	}
 	catch (...) {
-		MessageBox(NULL, "Error tao D3D doi so tham chieu", "Error", MB_OK);
+		MessageBox(NULL, "Error tao D3D presentation parameter", "Error", MB_OK);
 	}
 }
 
