@@ -31,6 +31,12 @@
     <ClCompile Include="GameObject.cpp">
       <Filter>FrameworkTHAY</Filter>
     </ClCompile>
+    <ClCompile Include="Debug.cpp">
+      <Filter>FrameworkTHAY</Filter>
+    </ClCompile>
+    <ClCompile Include="Textures.cpp">
+      <Filter>FrameworkTHAY</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Utils.h">
@@ -64,6 +70,12 @@
       <Filter>FrameworkTHAY</Filter>
     </ClInclude>
     <ClInclude Include="GameObject.h">
+      <Filter>FrameworkTHAY</Filter>
+    </ClInclude>
+    <ClInclude Include="Debug.h">
+      <Filter>FrameworkTHAY</Filter>
+    </ClInclude>
+    <ClInclude Include="Textures.h">
       <Filter>FrameworkTHAY</Filter>
     </ClInclude>
   </ItemGroup>
