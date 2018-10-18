@@ -1,32 +1,32 @@
 #include "GameTime.h"
 
 GameTime::GameTime(void){}
-
 GameTime::~GameTime(void){}
 
 bool GameTime::Initialize() {
-	LARGE_INTEGER largeInteger;
+	LARGE_INTEGER i;
 
-	//get tan so tu counter. tan so kothay doi khi he thong dang chay, nen chi can thuc hien viec nay 1 lan
-	if (!QueryPerformanceFrequency(&largeInteger))
+	//lay tan so tu bo dem. tan so se khong thay doi khi he thong dang chay, vi vay minh chi can lam 1 lan cai nay
+	if (!QueryPerformanceCounter(&i))
 		return FALSE;
 
-	//cung cap number of ticks moi giay
-	m_frequencySeconds = (float)(largeInteger.QuadPart);
+	//dua num,ber of ticks per count
+	m_frequencySeconds = (float)(i.QuadPart);
 
-	//get gia tri hien tai cua couter
-	QueryPerformanceCounter(&largeInteger);
-	m_start = largeInteger.QuadPart;
+	//lay gia tri hien tai cua bo dem(counter)
+	QueryPerformanceCounter(&i);
+	m_start = i.QuadPart;
 	m_totalGameTime = 0;
-	m_elapseGameTime = 0;
-	return TRUE;
+	m_elapsedGameTime = 0;
 
+	return TRUE;
 }
 
 void GameTime::Update() {
-	LARGE_INTEGER largeInteger;
-	QueryPerformanceCounter(&largeInteger);
-	m_elapseGameTime = (float)(largeInteger.QuadPart - m_start) / m_frequencySeconds;
-	m_totalGameTime += m_elapseGameTime;
-	m_start = largeInteger.QuadPart;
+	LARGE_INTEGER i;
+
+	QueryPerformanceCounter(&i);
+	m_elapsedGameTime = (float)(i.QuadPart - m_start) / m_frequencySeconds;
+	m_totalGameTime += m_elapsedGameTime;
+	m_start = i.QuadPart;
 }

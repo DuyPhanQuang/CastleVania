@@ -1,113 +1,86 @@
-#include <d3dx9.h>
-#include <algorithm>
-
-#include "DGame.h"
 #include "GameObject.h"
-#include "DSprites.h"
-#include "Debug.h"
-#include "Textures.h"
 
-CGameObject::CGameObject()
-{
-	x = y = 0;
-	vx = vy = 0;
-	nx = 1;
+int GameObject::GetTag() {
+	return tag;
 }
 
-void CGameObject::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
-{
-	this->dt = dt;
-	dx = vx * dt;
-	dy = vy * dt;
+GameObject::GameObject() {
+	sprite = NULL;
+	region = NULL;
+	if (!region) 
+		region = new RECT();
+
 }
 
-/*
-	Extension of original SweptAABB to deal with two moving objects
-*/
+GameObject::~GameObject() {
+	if (sprite) {
+		delete(sprite);
+	}
+	if (region) {
+		delete(region);
+	}
+}
 
-/*
-	Calculate potential collisions with the list of colliable objects
+bool GameObject::Initialize(LPDIRECT3DDEVICE9 _gDevice, const char* _file, float _x, float _y, int tag) {
+	id = 0;
+	isEnable = true;
+	isDropItem = false;
+	isMoveable = false;
+	trigger = false;
+	isAdded = false;
 
-	coObjects: the list of colliable objects
-	coEvents: list of potential collisions
-*/
-void CGameObject::CalcPotentialCollisions(
-	vector<LPGAMEOBJECT> *coObjects,
-	vector<LPCOLLISIONEVENT> &coEvents)
-{
-	for (UINT i = 0; i < coObjects->size(); i++)
-	{
-		LPCOLLISIONEVENT e = SweptAABBEx(coObjects->at(i));
-
-		if (e->t > 0 && e->t <= 1.0f)
-			coEvents.push_back(e);
-		else
-			delete e;
+	if (!sprite) {
+		sprite = new Sprite(_x, _y);
+		if (!sprite->Initialize(_gDevice, _file))
+			return false;
 	}
 
-	std::sort(coEvents.begin(), coEvents.end(), CCollisionEvent::compare);
+	SetSize(sprite->GetWidth(), sprite->GetHeight());
+	SetPosition(sprite->GetPosition());
+
+	return true;
 }
 
-void CGameObject::FilterCollision(
-	vector<LPCOLLISIONEVENT> &coEvents,
-	vector<LPCOLLISIONEVENT> &coEventsResult,
-	float &min_tx, float &min_ty,
-	float &nx, float &ny)
-{
-	min_tx = 1.0f;
-	min_ty = 1.0f;
-	int min_ix = -1;
-	int min_iy = -1;
-
-	nx = 0.0f;
-	ny = 0.0f;
-
-	coEventsResult.clear();
-
-	for (UINT i = 0; i < coEvents.size(); i++)
-	{
-		LPCOLLISIONEVENT c = coEvents[i];
-
-		if (c->t < min_tx && c->nx != 0) {
-			min_tx = c->t; nx = c->nx; min_ix = i;
-		}
-
-		if (c->t < min_ty  && c->ny != 0) {
-			min_ty = c->t; ny = c->ny; min_iy = i;
-		}
+bool GameObject::InitSprite(LPDIRECT3DDEVICE9 gDevice, const char *file, float x, float y) {
+	if (!sprite) {
+		sprite = new Sprite(x, y);
+		if (!sprite->Initialize(gDevice, file))
+			return false;
 	}
 
-	if (min_ix >= 0) coEventsResult.push_back(coEvents[min_ix]);
-	if (min_iy >= 0) coEventsResult.push_back(coEvents[min_iy]);
+	return true;
 }
 
-
-void CGameObject::RenderBoundingBox()
-{
-	D3DXVECTOR3 p(x, y, 0);
-	RECT rect;
-
-	LPDIRECT3DTEXTURE9 bbox = CTextures::GetInstance()->Get(ID_TEX_BBOX);
-
-	float l, t, r, b;
-
-	GetBoundingBox(l, t, r, b);
-	rect.left = 0;
-	rect.top = 0;
-	rect.right = (int)r - (int)l;
-	rect.bottom = (int)b - (int)t;
-
-	CGame::GetInstance()->Draw(x, y, bbox, rect.left, rect.top, rect.right, rect.bottom, 32);
+void GameObject::SetSize(float width, float height) {
+	this->width = width;
+	this->height = height;
 }
 
-void CGameObject::AddAnimation(int aniId)
-{
-	LPANIMATION ani = CAnimations::GetInstance()->Get(aniId);
-	animations.push_back(ani);
+void GameObject::Render(ViewPort *viewPort) {
+	if (isEnable)
+		sprite->Render(viewPort);
 }
 
-
-CGameObject::~CGameObject()
-{
-
+void GameObject::SetPosition(D3DXVECTOR3 position) {
+	this->position = position;
 }
+
+void GameObject::SetPosition(float x, float y) {
+	sprite->SetPosition(x, y);
+}
+
+void GameObject::SetEnable(bool _isEnable) {
+	if (_isEnable)
+		isDead = false;
+	this->isEnable = _isEnable;
+}
+
+void GameObject::Reload() {
+	isEnable = false;
+	isInCamera = false;
+	trigger = false;
+	sprite->SetPosition(positionC);
+	*region = *regionC;
+}
+
+void GameObject::Update(float gameTime) {}

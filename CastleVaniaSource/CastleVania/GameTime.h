@@ -1,16 +1,17 @@
 #pragma once
-#ifndef _GAME_TIME_H
+#ifndef GAMETIME_H
 
 #include <Windows.h>
+#include "Input.h"
 
-class GameTime
-{
+class GameTime {
+private:
+	LONGLONG m_start;
+	float m_frequencySeconds; //second per count
+	float m_fps;
 public:
-	GameTime(void);
-	~GameTime(void);
-
-	float m_elapseGameTime;
-	float m_totalGameTime;
+	float m_elapsedGameTime; //time troi
+	float m_totalGameTime; 
 
 	bool Initialize();
 	bool Initialize(int fps);
@@ -18,19 +19,9 @@ public:
 	void Update();
 	void SetFPS(int fps);
 
-private:
-	LONGLONG m_start;
-	float m_frequencySeconds; //seconds per count
-	float m_fps; //frame per seconds
+	GameTime(void);
+	~GameTime(void);
 };
 
-//GameTime::GameTime()
-//{
-//}
-//
-//GameTime::~GameTime()
-//{
-//}
-
-#endif // !_GAME_TIME_H
+#endif // !GAMETIME_H
 

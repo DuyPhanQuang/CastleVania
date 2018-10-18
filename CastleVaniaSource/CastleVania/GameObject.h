@@ -1,88 +1,60 @@
 #pragma once
+#include "GSprite.h"
+#include "Graphics.h"
 
-#ifndef GANE_OBJECT_H
-
-#pragma once
-
-#include <Windows.h>
-#include <d3dx9.h>
-#include <vector>
-
-#include "DSprites.h"
-
-
-using namespace std;
-
-#define ID_TEX_BBOX -100		// special texture to draw object bounding box
-
-class CGameObject;
-typedef CGameObject * LPGAMEOBJECT;
-
-struct CCollisionEvent;
-typedef CCollisionEvent * LPCOLLISIONEVENT;
-struct CCollisionEvent
+class GameObject
 {
-	LPGAMEOBJECT obj;
-	float t, nx, ny;
-	CCollisionEvent(float t, float nx, float ny, LPGAMEOBJECT obj = NULL) { this->t = t; this->nx = nx; this->ny = ny; this->obj = obj; }
-
-	static bool compare(const LPCOLLISIONEVENT &a, LPCOLLISIONEVENT &b)
-	{
-		return a->t < b->t;
-	}
-};
-
-class CGameObject
-{
-	float x;
-	float y;
-
-	float dx;	// dx = vx*dt
-	float dy;	// dy = vy*dt
-
-	float vx;
-	float vy;
-
-	int nx;
-
-	int state;
-
-	DWORD dt;
-
-	vector<LPANIMATION> animations;
-
 public:
-	void SetPosition(float x, float y) { this->x = x, this->y = y; }
-	void SetSpeed(float vx, float vy) { this->vx = vx, this->vy = vy; }
-	void GetPosition(float &x, float &y) { x = this->x; y = this->y; }
-	void GetSpeed(float &vx, float &vy) { vx = this->vx; vy = this->vy; }
+	bool isInCamera;
+	bool trigger;
+	RECT *regionC;
+	D3DXVECTOR3 positionC;
+	bool isAdded;
+	bool isDropItem;
 
-	int GetState() { return this->state; }
+	 bool Initialize(LPDIRECT3DDEVICE9 gDevie, const char* file, float x, float y, int tag);
+	virtual bool InitSprite(LPDIRECT3DDEVICE9 gDevice, const char* file, float x, float y);
+	virtual void Render(ViewPort *viewPort);
+	virtual void Update(float gameTime);
+	virtual void Reload();
 
-	void RenderBoundingBox();
-
-	LPCOLLISIONEVENT SweptAABBEx(LPGAMEOBJECT coO);
-	void CalcPotentialCollisions(vector<LPGAMEOBJECT> *coObjects, vector<LPCOLLISIONEVENT> &coEvents);
-	void FilterCollision(
-		vector<LPCOLLISIONEVENT> &coEvents,
-		vector<LPCOLLISIONEVENT> &coEventsResult,
-		float &min_tx,
-		float &min_ty,
-		float &nx,
-		float &ny);
-
-	void AddAnimation(int aniId);
-
-	CGameObject();
-
-	virtual void GetBoundingBox(float &left, float &top, float &right, float &bottom) = 0;
-	virtual void Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects = NULL);
-	virtual void Render() = 0;
-	virtual void SetState(int state) { this->state = state; }
+	float GetWidth() { return width; }
+	float GetHeight() { return height; }
+	D3DXVECTOR3 GetPosition() { return sprite->GetPosition(); }
+	void SetSize(float width, float height);
+	void SetPosition(D3DXVECTOR3 position);
+	void SetPosition(float x, float y);
+	void SetEnable(bool enable);
+	bool IsEnable() { return isEnable; }
 
 
-	~CGameObject();
+	int GetTag();
+	GameObject();
+	~GameObject();
+
+	void SetColor(D3DCOLOR color) { sprite->SetColor(color); }
+	void SetPosition(D3DXVECTOR3 position);
+
+private:
+	int tag;
+	int id;
+
+protected:
+	Sprite* sprite;
+	RECT *region;
+	float width;
+	float height;
+	D3DXVECTOR3 position;
+	bool isEnable;
+	bool isDead;
+	bool isMoveable;
 };
 
-#endif // !GANE_OBJECT_H
 
+//GameObject::GameObject()
+//{
+//}
+//
+//GameObject::~GameObject()
+//{
+//}

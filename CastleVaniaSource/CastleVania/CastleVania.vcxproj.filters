@@ -1,9 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="Utils.cpp">
-      <Filter>Utils</Filter>
-    </ClCompile>
     <ClCompile Include="main.cpp">
       <Filter>WinMain</Filter>
     </ClCompile>
@@ -28,20 +25,47 @@
     <ClCompile Include="DGame.cpp">
       <Filter>FrameworkTHAY</Filter>
     </ClCompile>
-    <ClCompile Include="GameObject.cpp">
-      <Filter>FrameworkTHAY</Filter>
-    </ClCompile>
     <ClCompile Include="Debug.cpp">
       <Filter>FrameworkTHAY</Filter>
     </ClCompile>
     <ClCompile Include="Textures.cpp">
       <Filter>FrameworkTHAY</Filter>
     </ClCompile>
+    <ClCompile Include="Game.cpp">
+      <Filter>Framework</Filter>
+    </ClCompile>
+    <ClCompile Include="Input.cpp">
+      <Filter>Framework</Filter>
+    </ClCompile>
+    <ClCompile Include="GameTime.cpp">
+      <Filter>Framework</Filter>
+    </ClCompile>
+    <ClCompile Include="ScreenManager.cpp">
+      <Filter>Framework</Filter>
+    </ClCompile>
+    <ClCompile Include="GamePlayStateOne.cpp">
+      <Filter>Framework</Filter>
+    </ClCompile>
+    <ClCompile Include="TileMap.cpp">
+      <Filter>Framework</Filter>
+    </ClCompile>
+    <ClCompile Include="Ground.cpp">
+      <Filter>Framework\Object\StaticObject</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject.cpp">
+      <Filter>Framework</Filter>
+    </ClCompile>
+    <ClCompile Include="Simon.cpp">
+      <Filter>Framework\Object\MoveObject</Filter>
+    </ClCompile>
+    <ClCompile Include="GameState.cpp">
+      <Filter>Framework</Filter>
+    </ClCompile>
+    <ClCompile Include="IntroScene.cpp">
+      <Filter>Framework</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Utils.h">
-      <Filter>Utils</Filter>
-    </ClInclude>
     <ClInclude Include="SweptAABB.h">
       <Filter>Utils</Filter>
     </ClInclude>
@@ -69,14 +93,44 @@
     <ClInclude Include="DGame.h">
       <Filter>FrameworkTHAY</Filter>
     </ClInclude>
-    <ClInclude Include="GameObject.h">
-      <Filter>FrameworkTHAY</Filter>
-    </ClInclude>
     <ClInclude Include="Debug.h">
       <Filter>FrameworkTHAY</Filter>
     </ClInclude>
     <ClInclude Include="Textures.h">
       <Filter>FrameworkTHAY</Filter>
+    </ClInclude>
+    <ClInclude Include="Game.h">
+      <Filter>Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="GameTime.h">
+      <Filter>Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="Input.h">
+      <Filter>Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="ScreenManager.h">
+      <Filter>Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="GameState.h">
+      <Filter>Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="GamePlayStateOne.h">
+      <Filter>Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="TileMap.h">
+      <Filter>Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="Ground.h">
+      <Filter>Framework\Object\StaticObject</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject.h">
+      <Filter>Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="Simon.h">
+      <Filter>Framework\Object\MoveObject</Filter>
+    </ClInclude>
+    <ClInclude Include="IntroScene.h">
+      <Filter>Framework</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -106,6 +160,15 @@
     </Filter>
     <Filter Include="FrameworkTHAY">
       <UniqueIdentifier>{f49b3b3a-21ee-40f7-b0a1-87fcfd0e4328}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Object">
+      <UniqueIdentifier>{69f1586c-c5af-4814-a3b9-dd22a8424bf6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Object\StaticObject">
+      <UniqueIdentifier>{408f9d6a-876c-46fd-b113-a6b71e3444ae}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Object\MoveObject">
+      <UniqueIdentifier>{8209245a-fc84-4ba0-b9ff-102ff50843ae}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

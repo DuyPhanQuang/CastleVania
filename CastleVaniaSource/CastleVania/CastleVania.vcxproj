@@ -91,12 +91,21 @@
     <ClCompile Include="DSprites.cpp" />
     <ClCompile Include="dsutil.cpp" />
     <ClCompile Include="dxutil.cpp" />
+    <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="GamePlayStateOne.cpp" />
+    <ClCompile Include="GameState.cpp" />
+    <ClCompile Include="GameTime.cpp" />
     <ClCompile Include="Graphics.cpp" />
+    <ClCompile Include="Ground.cpp" />
     <ClCompile Include="GSprite.cpp" />
+    <ClCompile Include="Input.cpp" />
+    <ClCompile Include="IntroScene.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="ScreenManager.cpp" />
+    <ClCompile Include="Simon.cpp" />
     <ClCompile Include="Textures.cpp" />
-    <ClCompile Include="Utils.cpp" />
+    <ClCompile Include="TileMap.cpp" />
     <ClCompile Include="ViewPort.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -106,12 +115,21 @@
     <ClInclude Include="DSprites.h" />
     <ClInclude Include="dsutil.h" />
     <ClInclude Include="dxutil.h" />
+    <ClInclude Include="Game.h" />
     <ClInclude Include="GameObject.h" />
+    <ClInclude Include="GamePlayStateOne.h" />
+    <ClInclude Include="GameState.h" />
+    <ClInclude Include="GameTime.h" />
     <ClInclude Include="Graphics.h" />
+    <ClInclude Include="Ground.h" />
     <ClInclude Include="GSprite.h" />
+    <ClInclude Include="Input.h" />
+    <ClInclude Include="IntroScene.h" />
+    <ClInclude Include="ScreenManager.h" />
+    <ClInclude Include="Simon.h" />
     <ClInclude Include="SweptAABB.h" />
     <ClInclude Include="Textures.h" />
-    <ClInclude Include="Utils.h" />
+    <ClInclude Include="TileMap.h" />
     <ClInclude Include="ViewPort.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
