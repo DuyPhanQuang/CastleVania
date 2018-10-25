@@ -1,9 +1,11 @@
 #pragma once
 #include "Graphics.h"
 #include "ViewPort.h"
-#include "GameTime.h"
 #include "Input.h"
+#include "Simon.h"
+#include "GameTime.h"
 #include "GSprite.h"
+#include "Input.h"
 #include "ScreenManager.h"
 
 #ifndef GAME_H
@@ -30,11 +32,11 @@ private:
 	ScreenManager* screenManager;
 };
 
-Game::Game()
-{
-}
-
-Game::~Game()
-{
-}
+//Game::Game()
+//{
+//}
+//
+//Game::~Game()
+//{
+//}
 #endif // !GAME_H

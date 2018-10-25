@@ -18,7 +18,7 @@ void Ground::Render(ViewPort *viewPort) {
 	D3DXVECTOR3 pos = this->position;
 	for (int j = 0; j < height / 32; j++) {
 		pos.y = this->position.y - 32 * j;
-		for (int i = 0; i < width; i++) {
+		for (int i = 0; i < width / 32; i++) {
 			pos.x = this->position.x + 32 * i;
 			sprite->Render(pos, D3DCOLOR_XRGB(255, 255, 255), viewPort);
 		}

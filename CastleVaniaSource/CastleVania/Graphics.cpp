@@ -32,7 +32,7 @@ bool Graphics::Init(HWND hw) {
 	//khoi tao doi tuong directX 3D
 	pDirect3d = Direct3DCreate9(D3D_SDK_VERSION);
 	if (pDirect3d == NULL)
-		/*MessageBox(NULL, "Error initializing DirectX 3D", "Error", MB_OK);*/
+		MessageBox(NULL, "Error initializing DirectX 3D", "Error", MB_OK);
 
 	//khoi tao D3D presentation parameter
 	InitD3Dpp();
@@ -59,7 +59,7 @@ bool Graphics::Init(HWND hw) {
 		&pDevice3d
 	);
 	if (FAILED(result)) {
-		/*MessageBox(NULL, "Error creating DirectX 3D Device", "Error", MB_OK);*/
+		MessageBox(NULL, "Error creating DirectX 3D Device", "Error", MB_OK);
 		return false;
 	}
 	return true;
@@ -85,7 +85,7 @@ void Graphics::InitD3Dpp() {
 
 	}
 	catch (...) {
-		/*MessageBox(NULL, "Error taâ D3D presentation parameter", "Error", MB_OK);*/
+		MessageBox(NULL, "Error taâ D3D presentation parameter", "Error", MB_OK);
 	}
 }
 

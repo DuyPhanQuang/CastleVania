@@ -17,6 +17,8 @@
 #define GROUND "Resource\\sprites\\Ground\\0.png"
 #define SIMON_SPRITE "Resource\\sprites\\Simon\\Simon_ver_editted.png"
 #define HELICOPTER_SPRITE "Resource\\sprites\\helicopter.png"
+#define DEAD_SPRITE "Resource\\sprites\\Effect\\DEAD.png"
+#define COLLIDER_EFFECT_SPRITE "Resource\\sprites\\Effect\\0.png"
 
 //BG
 #define LEVEL_ONE_BG "Resource\\sprites\\lv1.s"
@@ -33,7 +35,7 @@
 #define TAG_GROUND 12
 #define TAG_SIMON 31
 
-//action-ANIMATION
+//ANIMATION
 #define MOVE 1;
 #define STAND_BACK 19;
 #define STAND 0;
@@ -41,5 +43,6 @@
 #define JUMP 3;
 
 //STATE
-#define GAME_PLAY_STATE_ONE -1
+#define GAME_PLAY_STATE_ONE 1
 #define GAME_INTRO_SCENE 0
+#define GAME_MENU_STATE -1

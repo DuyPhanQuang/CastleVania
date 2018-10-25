@@ -3,8 +3,6 @@
 #ifndef _INPUT_H_
 #include <dinput.h>
 
-	LPDIRECTINPUT8 dinput;
-	LPDIRECTINPUTDEVICE8 dkeyboard;
 	int InitDirectInput();
 	int InitKeyboard(HWND);
 	void PollKeyboard();

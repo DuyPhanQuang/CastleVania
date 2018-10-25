@@ -16,13 +16,13 @@ bool GamePlayStateOne::Initialize(Graphics *graphics) {
 	tileMap->LoadListTileFromFile(LEVEL_ONE_MATRIX_BG);
 
 	cameraObject = new GameObject();
-	cameraObject->Initialize(gDevice, SIMON_SPRITE, viewPort->GetCameraPosition.x, viewPort->GetCameraPosition.y, 5);
+	cameraObject->Initialize(gDevice, SIMON_SPRITE, viewPort->GetCameraPosition().x, viewPort->GetCameraPosition().y, 5);
 
 	leftCamera = new Ground(2, 450);
-	leftCamera->Initialize(gDevice, GROUND, viewPort->GetCameraPosition.x, viewPort->GetCameraPosition.y, TAG_GROUND);
+	leftCamera->Initialize(gDevice, GROUND, viewPort->GetCameraPosition().x, viewPort->GetCameraPosition().y, TAG_GROUND);
 
 	rightCamera = new Ground(2, 450);
-	rightCamera->Initialize(gDevice, GROUND, viewPort->GetCameraPosition.x + GAME_WIDTH, viewPort->GetCameraPosition.y, TAG_GROUND);
+	rightCamera->Initialize(gDevice, GROUND, viewPort->GetCameraPosition().x + GAME_WIDTH, viewPort->GetCameraPosition().y, TAG_GROUND);
 
 	list = new std::vector<GameObject*>();
 

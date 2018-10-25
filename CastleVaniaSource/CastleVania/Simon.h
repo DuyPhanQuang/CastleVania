@@ -1,10 +1,15 @@
 #pragma once
 #include "Input.h"
 #include "GameObject.h"
+#include "Input.h"
+#include "SweptAABBCollider.h"
+#include "Animated.h"
+#include "Enemy.h"
+
 
 #define INVINCIBLE_TIME 2
 
-class Simon : public GameObject
+class Simon : public Enemy
 {
 public:
 	Simon(int hp, int damage, int point);
@@ -20,6 +25,7 @@ public:
 
 	bool GetIsLeft() { return isLeft; };
 	void SetIsLeft(bool status) { isLeft = status; };
+	void SetAction(int action) { this->action = action; }
 
 	void Move();
 	void Jump();
@@ -32,6 +38,7 @@ public:
 	bool CanControllKeyboard() { return canControlKeyboard; }
 protected:
 	bool isLeft;
+	int action;
 private:
 	int currentAnimID;
 	float simonSpeed;

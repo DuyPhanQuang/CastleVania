@@ -11,12 +11,17 @@
 static int score;
 
 class GameState {
+	float simonDeadTime = 1.5;
 protected:
 	ViewPort* viewPort;
-	std::vector<GameObject*> listObject;
+	std::vector<GameObject*> *listObject;
 	static Simon* simon;
 	Graphics *graphics;
+
+	D3DXVECTOR3 simonCheckPoint;
+	D3DXVECTOR3 cameraCheckPoint;
 	float time;
+	float timeKillAll;
 	bool choose;
 	bool changeState;
 public:
@@ -32,7 +37,10 @@ public:
 	//get-set de chuyen screen
 	virtual bool GetChangingState() { return changeState; };
 	virtual void SetChangingState(bool status) { changeState = status; }
+
 	virtual bool CameraFollowHandle(float gameTime) = 0;
+
+	//handle chuyen scene 2
 };
 
 #endif // !GAMESTATE_H

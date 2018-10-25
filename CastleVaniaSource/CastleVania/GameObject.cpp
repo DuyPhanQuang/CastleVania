@@ -4,21 +4,51 @@ int GameObject::GetTag() {
 	return tag;
 }
 
+SweptAABBCollider* GameObject::GetCollider() { return sweptAABBCollider; };
+
+void GameObject::SetBox(float x, float y, float w, float h, float vx, float vy) {
+	//box collider cho game objec
+	Box boxCollider;
+	boxCollider.top = y;
+	boxCollider.bottom = y - h;
+	boxCollider.left = x;
+	boxCollider.right = x + w;
+	boxCollider.vx = vx;
+	boxCollider.vy = vy;
+
+	sweptAABBCollider->SetBox(boxCollider); //build box collider
+
+}
+
+D3DXVECTOR3 GameObject::GetVelocity() {
+	return D3DXVECTOR3(0.0f, 0.0f, 0.0f);
+}
+
+void GameObject::UpdateEffect(float gameTime) {
+	deadEffect->SetPosition(sprite->GetPosition().x, sprite->GetPosition().y);
+	deadEffect->Update(gameTime);
+	isDead = !deadEffect->CheckDoAllFrame();
+	if (!isDead)
+		isEnable = false;
+}
+
+
+
 GameObject::GameObject() {
 	sprite = NULL;
-	region = NULL;
+	/*region = NULL;
 	if (!region) 
 		region = new RECT();
-
+*/
 }
 
 GameObject::~GameObject() {
 	if (sprite) {
 		delete(sprite);
 	}
-	if (region) {
-		delete(region);
-	}
+	if (sweptAABBCollider)
+		delete(sweptAABBCollider);
+
 }
 
 bool GameObject::Initialize(LPDIRECT3DDEVICE9 _gDevice, const char* _file, float _x, float _y, int tag) {
@@ -35,8 +65,21 @@ bool GameObject::Initialize(LPDIRECT3DDEVICE9 _gDevice, const char* _file, float
 			return false;
 	}
 
+	sweptAABBCollider = new SweptAABBCollider();
+
+	//GAN TAG CHO OBJECT
+	sweptAABBCollider->SetTag(tag);
+	this->tag = tag;
+
 	SetSize(sprite->GetWidth(), sprite->GetHeight());
 	SetPosition(sprite->GetPosition());
+
+	isDead = false;
+	deadEffect = new DeadAnim();
+	deadEffect->Initialize(_gDevice, DEAD_SPRITE, 0, 0);
+
+	colliderEffect = new ColliderEffect();
+	colliderEffect->Initialize(_gDevice, COLLIDER_EFFECT_SPRITE, _x, _y - 20);
 
 	return true;
 }
@@ -79,8 +122,8 @@ void GameObject::Reload() {
 	isEnable = false;
 	isInCamera = false;
 	trigger = false;
-	sprite->SetPosition(positionC);
-	*region = *regionC;
+	/*sprite->SetPosition(positionC);
+	*region = *regionC;*/
 }
 
 void GameObject::Update(float gameTime) {}

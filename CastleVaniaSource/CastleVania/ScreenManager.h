@@ -1,7 +1,8 @@
 #pragma once
 #include "Graphics.h"
 #include "Input.h"
-#include "GameState.h"
+#include "GamePlayStateOne.h"
+#include "IntroScene.h"
 	
 class ScreenManager
 {
@@ -17,7 +18,7 @@ public:
 private:
 	Graphics* gDevice;
 	GameState* gameState;
-	int stateID;
+	int stateID; // CO` DE CHUYEN STAGE
 };
 
 //ScreenManager::ScreenManager()

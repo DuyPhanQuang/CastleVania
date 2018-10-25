@@ -1,5 +1,8 @@
 #include "Input.h"
 
+LPDIRECTINPUT8 dinput;
+LPDIRECTINPUTDEVICE8 dkeyboard;
+
 char keys[256];
 char keysBuffer[256]; //luu trang thai cac phim vao mang~ nay de xet keypress
 
@@ -38,4 +41,32 @@ int InitKeyboard(HWND hwnd) {
 
 int IsKeyDown(int key) {
 	return (IsKeyDown(key) && !(keysBuffer[key] & 0x80));
+}
+
+void PollKeyboard()
+{
+	for (int i = 0; i < 256; i++)
+		keysBuffer[i] = keys[i];
+
+	dkeyboard->GetDeviceState(sizeof(keys), (LPVOID)&keys);
+}
+
+int IsKeyRelease(int key)
+{
+	return (!IsKeyDown(key) && (keysBuffer[key] & 0x80));
+}
+
+int IsKeyPress(int key)
+{
+	return (IsKeyDown(key) && !(keysBuffer[key] & 0x80));
+}
+
+void KillKeyboard()
+{
+	if (dkeyboard != NULL)
+	{
+		dkeyboard->Unacquire();
+		dkeyboard->Release();
+		dkeyboard = NULL;
+	}
 }

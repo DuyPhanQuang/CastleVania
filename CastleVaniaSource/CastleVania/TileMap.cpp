@@ -44,7 +44,7 @@ void TileMap::LoadListTileFromFile(const char *file) {
 		getline(pFile, lineString);
 		if (lineString.find("END") != string::npos)
 			break;
-		for (int j = 0; i < cols; j++) {
+		for (int j = 0; j < cols; j++) {
 			if (j == 0) {
 				posSpace[0] = lineString.find(" ", 0);
 				subString = lineString.substr(0, posSpace[0]);

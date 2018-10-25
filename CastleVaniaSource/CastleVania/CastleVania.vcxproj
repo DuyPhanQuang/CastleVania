@@ -86,11 +86,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Animated.cpp" />
+    <ClCompile Include="ColliderEffect.cpp" />
+    <ClCompile Include="DeadAnim.cpp" />
     <ClCompile Include="Debug.cpp" />
     <ClCompile Include="DGame.cpp" />
     <ClCompile Include="DSprites.cpp" />
     <ClCompile Include="dsutil.cpp" />
     <ClCompile Include="dxutil.cpp" />
+    <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GamePlayStateOne.cpp" />
@@ -104,17 +108,22 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="ScreenManager.cpp" />
     <ClCompile Include="Simon.cpp" />
+    <ClCompile Include="SweptAABBCollider.cpp" />
     <ClCompile Include="Textures.cpp" />
     <ClCompile Include="TileMap.cpp" />
     <ClCompile Include="ViewPort.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Animated.h" />
+    <ClInclude Include="ColliderEffect.h" />
+    <ClInclude Include="DeadAnim.h" />
     <ClInclude Include="Debug.h" />
     <ClInclude Include="define.h" />
     <ClInclude Include="DGame.h" />
     <ClInclude Include="DSprites.h" />
     <ClInclude Include="dsutil.h" />
     <ClInclude Include="dxutil.h" />
+    <ClInclude Include="Enemy.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GamePlayStateOne.h" />
@@ -127,7 +136,7 @@
     <ClInclude Include="IntroScene.h" />
     <ClInclude Include="ScreenManager.h" />
     <ClInclude Include="Simon.h" />
-    <ClInclude Include="SweptAABB.h" />
+    <ClInclude Include="SweptAABBCollider.h" />
     <ClInclude Include="Textures.h" />
     <ClInclude Include="TileMap.h" />
     <ClInclude Include="ViewPort.h" />

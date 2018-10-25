@@ -23,9 +23,40 @@ void ScreenManager::LoadState(int stateID) {
 		this->stateID = stateID;
 		break;
 	case GAME_PLAY_STATE_ONE:
-		/*delete(gameState)*/
-		//break;
+		delete(gameState);
+		gameState = new GamePlayStateOne();
+		if (!gameState->Initialize(gDevice))
+			return;
+		gameState->state = stateID;
+		this->stateID = stateID;
+		break;
 	default:
 		break;
 	}
+}
+
+void ScreenManager::Render() {
+	gDevice->Clear();
+	gDevice->Begin();
+
+	gameState->Render();
+	gDevice->End();
+	gDevice->Present();
+}
+
+void ScreenManager::NextStateLevel() {
+	stateID++;
+}
+
+void ScreenManager::Update(float gameTime) {
+	if (gameState->GetChangingState()) {
+		if (stateID != GAME_MENU_STATE) {
+			gameState->DestroyAll();
+		}
+		NextStateLevel();
+		LoadState(stateID);
+		gameState->SetChangingState(false);
+	}
+
+	gameState->Update(gameTime);
 }

@@ -1,10 +1,14 @@
 #include "Game.h"
-#include "Input.h"
-#include "ScreenManager.h"
 
 Game::Game() {
 	gDevice = NULL;
 	gameTime = NULL;
+}
+
+Game::~Game() {
+	SAFE_DELETE(gDevice);
+	SAFE_DELETE(viewPort);
+	SAFE_DELETE(gameTime);
 }
 
 bool Game::Initialize(HWND hWnd, int width, int height) {
@@ -38,10 +42,4 @@ void Game::Update(float _gameTime) {
 
 void Game::Draw() {
 	screenManager->Render();
-}
-
-Game::~Game() {
-	SAFE_DELETE(gDevice);
-	SAFE_DELETE(viewPort);
-	SAFE_DELETE(gameTime);
 }
