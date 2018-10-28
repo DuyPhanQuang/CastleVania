@@ -26,9 +26,51 @@ bool GamePlayStateOne::Initialize(Graphics *graphics) {
 
 	list = new std::vector<GameObject*>();
 
+	simon->SetPosition(100, 150);
+	simon->Reload();
+
 	changeState = false;
 	time = 0;
 	return true;
+}
+
+void GamePlayStateOne::Update(float gameTime) {
+	time += gameTime;
+	if (simon->GetPosition().x >= GAME_HEIGHT / 2 && simon->GetPosition().x <= 1536 - GAME_WIDTH / 2 - 32) {
+		D3DXVECTOR3 currentCamera = viewPort->GetCameraPosition(); //lay pos hien tai cua camera
+		currentCamera.x += simon->GetVelocity().x * gameTime;
+		viewPort->SetCameraPosition(currentCamera.x, currentCamera.y); //update lai pos camera
+	}
+
+	cameraObject->SetPosition(viewPort->GetCameraPosition());
+	// handle truong hop de cho simon luon o trong camera
+	leftCamera->SetPosition(viewPort->GetCameraPosition().x - 2, viewPort->GetCameraPosition().y);
+	leftCamera->SetBox(leftCamera->GetPosition().x, leftCamera->GetPosition().y, 2, GAME_HEIGHT, 0, 0);
+
+	rightCamera->SetPosition(viewPort->GetCameraPosition().x + GAME_WIDTH, viewPort->GetCameraPosition().y);
+	rightCamera->SetBox(rightCamera->GetPosition().x, rightCamera->GetPosition().y, 2, GAME_HEIGHT, 0, 0);
+
+	list->clear();
+
+	simon->KeyBoardHandle(gameTime);
+	simon->Update(gameTime);
+	simon->CheckCollider(gameTime, list);
+	simon->CheckColliderWith(gameTime, leftCamera);
+	simon->CheckColliderWith(gameTime, rightCamera);
+
+	if (IsKeyPress(DIK_M))
+		SetChangingState(true);
+
+	//den vi tri de chuyen scene(stage)
+	if (simon->GetPosition().x > 1300 && simon->GetPosition().x < 1400) {
+		simon->SetVelocity(D3DXVECTOR3(0, 0, 0));
+		simon->SetPosition(simon->GetPosition().x + 50 * gameTime, simon->GetPosition().y);
+		simon->SetAction(1);
+		simon->SetCanControlKeyboard(false);
+	}
+	else if (simon->GetPosition().x > 1400) {
+		SetChangingState(true);
+	}
 }
 
 void GamePlayStateOne::Render() {
@@ -37,6 +79,7 @@ void GamePlayStateOne::Render() {
 		(*i)->isAdded = false;
 		(*i)->Render(viewPort);
 	}
+	simon->Render(viewPort);
 	castleSprite->Render(viewPort);
 }
 

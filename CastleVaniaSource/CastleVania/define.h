@@ -9,6 +9,7 @@
 #define GAME_TITLE "Castle Vania"
 #define FRAME_RATE 30
 #define FPS	60
+#define EARTH_ACCELERATION -2000
 
 //sprite
 #define SIMON_SPRITE "Resource\\sprites\\Simon\\Simon_ver_editted.png"

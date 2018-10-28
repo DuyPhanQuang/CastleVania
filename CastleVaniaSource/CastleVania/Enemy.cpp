@@ -109,3 +109,63 @@ void Enemy::Update(float gameTime) {
 	colliderEffect->SetPosition(sprite->GetPosition().x, sprite->GetPosition().y - 20);
 	colliderEffect->Update(gameTime);
 }
+
+void Enemy::SetBox(float offsetWidth, float offsetHeight, float offsetX, float offsetY) {
+	GameObject::SetBox(sprite->GetPosition().x - offsetX, sprite->GetPosition().y - offsetY, anim->frameWidth - offsetWidth, anim->frameHeight - offsetHeight, velocity.x, velocity.y);
+}
+
+void Enemy::CheckCollider(float gameTime, std::vector<GameObject*> *listGameObject) {
+	float normalX = 0;
+	float normalY = 0;
+	float timeCollide;
+
+	for (std::vector<GameObject*>::iterator i = listGameObject->begin(); i != listGameObject->end(); i++) {
+		if ((*i)->GetCollider()->GetTag() == TAG_GROUND) {
+			Box tempBox = (*i)->GetCollider()->GetBox();
+			if (collider->AABBCheck(collider->GetBox(), (*i)->GetCollider()->GetBox())) {
+				isGrounded = false;
+			}
+			Box broadphaseBox = collider->GetSweptBoardphaseBox(collider->GetBox(), gameTime);
+			if (collider->AABBCheck(broadphaseBox, (*i)->GetCollider()->GetBox())) {
+				Box tempBox = (*i)->GetCollider()->GetBox();
+				timeCollide = collider->SweptAABB(gameTime, collider->GetBox(), (*i)->GetCollider()->GetBox(), normalX, normalY);
+				if ((timeCollide >= 0.0f && timeCollide < 1.0f)) {
+					if (normalY == 1) {
+						sprite->SetPosition(sprite->GetPosition().x, collider->GetBox().top + gameTime * timeCollide * velocity.y + 0.1);
+						velocity.y = 0;
+						isGrounded = true;
+						return;
+					}
+				}
+			}
+			else
+				isGrounded = false;
+		}
+	}
+}
+
+void Enemy::GravityHandle(float gameTime) {
+	velocity.y += EARTH_ACCELERATION * gameTime;
+}
+
+bool Enemy::IsColliderWith(float gameTime, GameObject * object) {
+	float normalX = 0; 
+	float normalY = 0;
+	float timeCollide;
+	Box tempBox = object->GetCollider()->GetBox();
+	if (collider->AABBCheck(collider->GetBox(), object->GetCollider()->GetBox())) {
+		return true;
+	}
+	Box broadphaseBox = collider->GetSweptBoardphaseBox(collider->GetBox(), gameTime);
+	if (collider->AABBCheck(broadphaseBox, object->GetCollider()->GetBox())) {
+		Box tempBox = object->GetCollider()->GetBox();
+		timeCollide = collider->SweptAABB(gameTime, collider->GetBox(), object->GetCollider()->GetBox(), normalX, normalY);
+		if ((timeCollide >= 0.0f && timeCollide < 1.0f)) {
+			return true;
+		}
+		else return false;
+
+
+		return false;
+	}
+}

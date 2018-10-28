@@ -87,6 +87,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Animated.cpp" />
+    <ClCompile Include="Collider.cpp" />
     <ClCompile Include="ColliderEffect.cpp" />
     <ClCompile Include="DeadAnim.cpp" />
     <ClCompile Include="Debug.cpp" />
@@ -108,13 +109,13 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="ScreenManager.cpp" />
     <ClCompile Include="Simon.cpp" />
-    <ClCompile Include="SweptAABBCollider.cpp" />
     <ClCompile Include="Textures.cpp" />
     <ClCompile Include="TileMap.cpp" />
     <ClCompile Include="ViewPort.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animated.h" />
+    <ClInclude Include="Collider.h" />
     <ClInclude Include="ColliderEffect.h" />
     <ClInclude Include="DeadAnim.h" />
     <ClInclude Include="Debug.h" />
@@ -136,7 +137,6 @@
     <ClInclude Include="IntroScene.h" />
     <ClInclude Include="ScreenManager.h" />
     <ClInclude Include="Simon.h" />
-    <ClInclude Include="SweptAABBCollider.h" />
     <ClInclude Include="Textures.h" />
     <ClInclude Include="TileMap.h" />
     <ClInclude Include="ViewPort.h" />

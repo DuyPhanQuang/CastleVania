@@ -2,8 +2,9 @@
 #include "GSprite.h"
 #include "Graphics.h"
 #include "ColliderEffect.h"
-#include "SweptAABBCollider.h"
+//#include "SweptAABBCollider.h"
 #include "DeadAnim.h"
+#include "Collider.h"
 
 class GameObject
 {
@@ -23,7 +24,8 @@ public:
 	virtual void SetBox(float x, float y, float w, float h, float vx, float vy);
 	virtual D3DXVECTOR3 GetVelocity();
 
-	SweptAABBCollider* GetCollider();
+	/*SweptAABBCollider* GetCollider();*/
+	Collider* GetCollider();
 
 	ColliderEffect* GetColliderEffect() { return colliderEffect; };
 	virtual void CheckCollider(float gameTime, std::vector<GameObject*> *listGameObject) {}
@@ -59,7 +61,8 @@ private:
 
 protected:
 	Sprite* sprite;
-	SweptAABBCollider* sweptAABBCollider;
+	/*SweptAABBCollider* sweptAABBCollider;*/
+	Collider* collider;
 	DeadAnim *deadEffect;
 	ColliderEffect *colliderEffect;
 	RECT *region;

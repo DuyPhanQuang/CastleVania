@@ -4,7 +4,11 @@ int GameObject::GetTag() {
 	return tag;
 }
 
-SweptAABBCollider* GameObject::GetCollider() { return sweptAABBCollider; };
+//SweptAABBCollider* GameObject::GetCollider() { return sweptAABBCollider; };
+Collider* GameObject::GetCollider()
+{
+	return collider;
+}
 
 void GameObject::SetBox(float x, float y, float w, float h, float vx, float vy) {
 	//box collider cho game objec
@@ -16,7 +20,8 @@ void GameObject::SetBox(float x, float y, float w, float h, float vx, float vy) 
 	boxCollider.vx = vx;
 	boxCollider.vy = vy;
 
-	sweptAABBCollider->SetBox(boxCollider); //build box collider
+	//sweptAABBCollider->SetBox(boxCollider); //build box collider
+	collider->SetBox(boxCollider);
 
 }
 
@@ -46,8 +51,10 @@ GameObject::~GameObject() {
 	if (sprite) {
 		delete(sprite);
 	}
-	if (sweptAABBCollider)
-		delete(sweptAABBCollider);
+	/*if (sweptAABBCollider)
+		delete(sweptAABBCollider);*/
+	if (collider)
+		delete(collider);
 
 }
 
@@ -65,10 +72,12 @@ bool GameObject::Initialize(LPDIRECT3DDEVICE9 _gDevice, const char* _file, float
 			return false;
 	}
 
-	sweptAABBCollider = new SweptAABBCollider();
+	/*sweptAABBCollider = new SweptAABBCollider();*/
+	collider = new Collider();
 
 	//GAN TAG CHO OBJECT
-	sweptAABBCollider->SetTag(tag);
+	/*sweptAABBCollider->SetTag(tag);*/
+	collider->SetTag(tag);
 	this->tag = tag;
 
 	SetSize(sprite->GetWidth(), sprite->GetHeight());
