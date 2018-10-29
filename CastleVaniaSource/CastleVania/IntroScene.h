@@ -12,6 +12,8 @@ private:
 
 	Ground *ground;
 
+	void InitAnim();
+
 	LPDIRECT3DDEVICE9 gDevice;
 public:
 	IntroScene();

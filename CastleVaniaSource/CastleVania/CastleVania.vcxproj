@@ -92,6 +92,7 @@
     <ClCompile Include="DeadAnim.cpp" />
     <ClCompile Include="Debug.cpp" />
     <ClCompile Include="DGame.cpp" />
+    <ClCompile Include="Door.cpp" />
     <ClCompile Include="DSprites.cpp" />
     <ClCompile Include="dsutil.cpp" />
     <ClCompile Include="dxutil.cpp" />
@@ -121,6 +122,7 @@
     <ClInclude Include="Debug.h" />
     <ClInclude Include="define.h" />
     <ClInclude Include="DGame.h" />
+    <ClInclude Include="Door.h" />
     <ClInclude Include="DSprites.h" />
     <ClInclude Include="dsutil.h" />
     <ClInclude Include="dxutil.h" />

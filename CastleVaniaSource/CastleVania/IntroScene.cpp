@@ -46,11 +46,11 @@ void IntroScene::Update(float gameTime) {
 		helicopter->GetPosition().y);
 	if (simon->GetPosition().x > viewPort->GetCameraPosition().x + GAME_WIDTH / 2 - 35) {
 		simon->SetPosition(simon->GetPosition().x - 57 * gameTime, simon->GetPosition().y);
-		simon->SetAction(1); //MOVE
+		simon->SetAction(MOVE); //MOVE
 	}
 	else {
 		simon->SetPosition(simon->GetPosition().x, simon->GetPosition().y);
-		simon->SetAction(19); //STAND_BACK
+		simon->SetAction(STAND_BACK); //STAND_BACK
 		timeDelay += gameTime;
 		if (timeDelay >= 1.5) {
 			SetChangingState(true);
@@ -58,6 +58,7 @@ void IntroScene::Update(float gameTime) {
 	}
 
 	simon->Update(gameTime);
+	simon->CheckColliderWithGround(gameTime, ground);
 	if (IsKeyPress(DIK_M)) {
 		SetChangingState(true);
 	}

@@ -79,6 +79,9 @@
     <ClCompile Include="Collider.cpp">
       <Filter>Framework</Filter>
     </ClCompile>
+    <ClCompile Include="Door.cpp">
+      <Filter>Framework\Object\StaticObject</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Graphics.h">
@@ -158,6 +161,9 @@
     </ClInclude>
     <ClInclude Include="Collider.h">
       <Filter>Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="Door.h">
+      <Filter>Framework\Object\StaticObject</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

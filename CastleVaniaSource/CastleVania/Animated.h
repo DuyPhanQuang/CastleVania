@@ -29,7 +29,7 @@ public:
 	void DoAnimated(int animId);
 	bool CheckDoAllFrame() { return isDoAllFrame; };
 	int GetCurrentFrame() { return currentFrame; };
-	void GetCurrentFrame(bool status) { isDoAllFrame = status; };
+	void SetDoAllFrame(bool status) { isDoAllFrame = status; };
 
 private:
 	

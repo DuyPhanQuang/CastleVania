@@ -1,11 +1,11 @@
 #include "Enemy.h"
 
-Enemy::Enemy(int _hp, int _dame, int _point) {
+Enemy::Enemy(int _hp, int _damage, int _point) {
 	isGravity = true;
 	isGrounded = false;
 	this->isLeft = false;
 	this->hp = _hp;
-	this->dame = _dame;
+	this->damage = _damage;
 	this->point = _point;
 	this->respawnTime = 1;
 	hpC = hp;

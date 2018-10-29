@@ -45,7 +45,7 @@ protected:
 	int e_preHP;
 	float e_invincibleTime;
 	int hpC;
-	int dame;
+	int damage;
 	int point;
 	bool isGravity;
 	bool isGrounded;
