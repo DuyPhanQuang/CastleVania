@@ -19,7 +19,7 @@ bool GamePlayStateOne::Initialize(Graphics *graphics) {
 	cameraObject->Initialize(gDevice, SIMON_SPRITE, viewPort->GetCameraPosition().x, viewPort->GetCameraPosition().y, 5);
 
 	leftCamera = new Ground(2, 450);
-	leftCamera->Initialize(gDevice, GROUND, viewPort->GetCameraPosition().x, viewPort->GetCameraPosition().y, TAG_GROUND);
+	leftCamera->Initialize(gDevice, GROUND, viewPort->GetCameraPosition().x - 2, viewPort->GetCameraPosition().y, TAG_GROUND);
 
 	rightCamera = new Ground(2, 450);
 	rightCamera->Initialize(gDevice, GROUND, viewPort->GetCameraPosition().x + GAME_WIDTH, viewPort->GetCameraPosition().y, TAG_GROUND);
@@ -30,6 +30,7 @@ bool GamePlayStateOne::Initialize(Graphics *graphics) {
 	simon->Reload();
 
 	changeState = false;
+	
 	time = 0;
 	return true;
 }

@@ -1,11 +1,11 @@
 #pragma once
 
-#ifndef GAMESTATE_H
+#ifndef _GAMESTATE_H_
+#define __GAMESTATE_H__
 
 #include "ViewPort.h"
 #include <fstream>
 #include <vector>
-#include "Graphics.h"
 #include "Simon.h"
 
 static int score;
@@ -36,12 +36,31 @@ public:
 
 	//get-set de chuyen screen
 	virtual bool GetChangingState() { return changeState; };
-	virtual void SetChangingState(bool status) { changeState = status; }
+	virtual void SetChangingState(bool status) { changeState = status; };
 
 	virtual bool CameraFollowHandle(float gameTime) = 0;
 
-	//handle chuyen scene 2
+	void CheckPointHandle(float gameTime, Simon* simon, std::vector<GameObject*> *list) {
+		if (simon->IsColliderWithCheckPoint(gameTime, list)) {
+			simonCheckPoint = simon->GetPosition();
+			cameraCheckPoint = viewPort->GetCameraPosition();
+		}
+
+		if (simon->GetPosition().y < viewPort->GetCameraPosition().y - GAME_HEIGHT) {
+			simon->Reset(simonCheckPoint);
+			viewPort->SetCameraPosition(cameraCheckPoint.x, cameraCheckPoint.y);
+		}
+
+		if (!simon->IsEnable()) {
+			simon->Reset(simonCheckPoint);
+			viewPort->SetCameraPosition(cameraCheckPoint.x, cameraCheckPoint.y);
+		}
+		//else {
+		//	simon->Reset(simonCheckPoint);
+		//	viewPort->SetCameraPosition(cameraCheckPoint.x, cameraCheckPoint.y);
+		//}
+	}
 };
 
-#endif // !GAMESTATE_H
+#endif _GAMESTATE_H_
 

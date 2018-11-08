@@ -29,22 +29,9 @@ D3DXVECTOR3 GameObject::GetVelocity() {
 	return D3DXVECTOR3(0.0f, 0.0f, 0.0f);
 }
 
-void GameObject::UpdateEffect(float gameTime) {
-	deadEffect->SetPosition(sprite->GetPosition().x, sprite->GetPosition().y);
-	deadEffect->Update(gameTime);
-	isDead = !deadEffect->CheckDoAllFrame();
-	if (!isDead)
-		isEnable = false;
-}
-
-
 
 GameObject::GameObject() {
 	sprite = NULL;
-	/*region = NULL;
-	if (!region) 
-		region = new RECT();
-*/
 }
 
 GameObject::~GameObject() {
@@ -55,7 +42,6 @@ GameObject::~GameObject() {
 		delete(sweptAABBCollider);*/
 	if (collider)
 		delete(collider);
-
 }
 
 bool GameObject::Initialize(LPDIRECT3DDEVICE9 _gDevice, const char* _file, float _x, float _y, int tag) {
@@ -83,17 +69,13 @@ bool GameObject::Initialize(LPDIRECT3DDEVICE9 _gDevice, const char* _file, float
 	SetSize(sprite->GetWidth(), sprite->GetHeight());
 	SetPosition(sprite->GetPosition());
 
-	isDead = false;
-	deadEffect = new DeadAnim();
-	deadEffect->Initialize(_gDevice, DEAD_SPRITE, 0, 0);
-
 	colliderEffect = new ColliderEffect();
 	colliderEffect->Initialize(_gDevice, COLLIDER_EFFECT_SPRITE, _x, _y - 20);
 
 	return true;
 }
 
-bool GameObject::InitSprite(LPDIRECT3DDEVICE9 gDevice, const char *file, float x, float y) {
+bool GameObject::InitSprite(LPDIRECT3DDEVICE9 gDevice, const char * file, float x, float y) {
 	if (!sprite) {
 		sprite = new Sprite(x, y);
 		if (!sprite->Initialize(gDevice, file))
@@ -123,7 +105,6 @@ void GameObject::SetPosition(float x, float y) {
 
 void GameObject::SetEnable(bool _isEnable) {
 	if (_isEnable)
-		isDead = false;
 	this->isEnable = _isEnable;
 }
 
@@ -131,8 +112,6 @@ void GameObject::Reload() {
 	isEnable = false;
 	isInCamera = false;
 	trigger = false;
-	/*sprite->SetPosition(positionC);
-	*region = *regionC;*/
 }
 
 void GameObject::Update(float gameTime) {}

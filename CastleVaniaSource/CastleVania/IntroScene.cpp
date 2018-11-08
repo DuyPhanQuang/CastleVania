@@ -1,5 +1,7 @@
 #include "IntroScene.h"
 
+void IntroScene::InitAnim() {}
+
 IntroScene::IntroScene() {}
 
 IntroScene::~IntroScene() {}
@@ -24,6 +26,11 @@ bool IntroScene::Initialize(Graphics *graphics) {
 	tileMap->LoadListTileFromFile(INTRO_SCENE_MATRIX_BG);
 
 	changeState = false;
+	for (int i = 0; i < 2; i++)
+		bat[i] = new BatAnim();
+
+	bat[0]->Initialize(gDevice, BAT_SPRITE, 410, 400);
+	bat[1]->Initialize(gDevice, BAT_SPRITE, 57, 200);
 
 	simon = new Simon(8, 0, 0);
 	if (!simon->Initialize(gDevice, SIMON_SPRITE, 610, 91, TAG_SIMON))
@@ -38,10 +45,15 @@ void IntroScene::Render() {
 	ground->Render(viewPort);
 
 	helicopter->Render(viewPort);
+	bat[0]->Render(viewPort);
+	bat[1]->Render(viewPort);
 	simon->Render(viewPort);
 }
 
 void IntroScene::Update(float gameTime) {
+
+	bat[0]->Update(gameTime, -13, -3);
+	bat[1]->Update(gameTime, 30, 17);
 	helicopter->SetPosition(helicopter->GetPosition().x - 13 * gameTime,
 		helicopter->GetPosition().y);
 	if (simon->GetPosition().x > viewPort->GetCameraPosition().x + GAME_WIDTH / 2 - 35) {
@@ -52,16 +64,14 @@ void IntroScene::Update(float gameTime) {
 		simon->SetPosition(simon->GetPosition().x, simon->GetPosition().y);
 		simon->SetAction(STAND_BACK); //STAND_BACK
 		timeDelay += gameTime;
-		if (timeDelay >= 1.5) {
+		if (timeDelay >= 1.5) 
 			SetChangingState(true);
-		}
 	}
 
 	simon->Update(gameTime);
 	simon->CheckColliderWithGround(gameTime, ground);
-	if (IsKeyPress(DIK_M)) {
+	if (IsKeyPress(DIK_M)) 
 		SetChangingState(true);
-	}
 }
 
 bool IntroScene::GetChangingState() {
@@ -71,6 +81,7 @@ bool IntroScene::GetChangingState() {
 void IntroScene::SetChangingState(bool status) {
 	GameState::SetChangingState(status);
 }
+
 
 void IntroScene::DestroyAll() {
 	delete(tileMap);

@@ -5,6 +5,7 @@
 #include "Animated.h"
 #include "Enemy.h"
 #include "Door.h"
+#include "Collider.h"
 
 
 #define INVINCIBLE_TIME 2
@@ -12,6 +13,8 @@
 class Simon : public Enemy
 {
 public:
+	static int score;
+	D3DXVECTOR3 simonCheckpoint;
 	Simon(int hp, int damage, int point);
 	~Simon();
 	bool Initialize(LPDIRECT3DDEVICE9 _gDevice, const char * _file, float _x, float _y, int tag);
@@ -34,9 +37,6 @@ public:
 	void Stand();
 	void Hurted();
 	void Fight();
-	void Fighting();
-	void Throwing();
-	void StandOnStair();
 
 	bool nextStage;
 
@@ -54,14 +54,17 @@ public:
 	void CheckColliderWithGround(float gameTime, GameObject *gameObject);
 	void CheckColliderWithGround(float gameTime, std::vector<GameObject*> * listGameObject);
 	void CheckColliderWithWall(float gameTime, std::vector<GameObject*>* listGameObject);
-	void CheckColliderWithMovableGround(float gameTime, std::vector<GameObject*>* listGameObject);
 	void CheckColliderWithEnemy(float gameTime, std::vector<GameObject*>* listGameObject);
 	void CheckColliderWithDoor(float gameTime, std::vector<GameObject*>* listGameObject);
 
 	void CollideWithDoorHandle(float gameTime, std::vector<GameObject*>* listGameObject, ViewPort* viewPort);
 
 	bool IsInvincible() { return isInvincible; };
+	bool IsColliderWithCheckPoint(float gameTime, std::vector<GameObject*>* listGameObject);
 	int GetAction() { return action; };
+	int GetEnergy() { return this->energy; };
+	void SetEnergy(int energy) { this->energy = energy; };
+	int GetLife() { return life; };
 	void SetAction(int action) { this->action = action; }
 
 protected:
@@ -82,9 +85,6 @@ private:
 	float invincibleTime;
 
 	bool isFighting;
-	bool isThrowing;
-	bool isSplashing;
-	bool isOnStair;
 
 	bool isInvincible;
 	bool canControlKeyboard;

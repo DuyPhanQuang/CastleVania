@@ -1,6 +1,7 @@
 #pragma once
 
 #ifndef _INPUT_H_
+#define _INPUT_H_
 #include <dinput.h>
 
 	int InitDirectInput();

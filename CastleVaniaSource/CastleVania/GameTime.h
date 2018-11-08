@@ -1,5 +1,6 @@
 #pragma once
 #ifndef GAMETIME_H
+#define GAMETIME_H
 
 #include <Windows.h>
 #include "Input.h"

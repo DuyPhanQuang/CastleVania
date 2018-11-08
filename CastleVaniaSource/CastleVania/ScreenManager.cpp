@@ -50,12 +50,7 @@ void ScreenManager::NextStateLevel() {
 
 void ScreenManager::Update(float gameTime) {
 	if (gameState->GetChangingState()) {
-		if (stateID != GAME_MENU_STATE) {
 			gameState->DestroyAll();
-		}
-		NextStateLevel();
-		LoadState(stateID);
-		gameState->SetChangingState(false);
 	}
 
 	gameState->Update(gameTime);

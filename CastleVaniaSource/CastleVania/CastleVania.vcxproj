@@ -87,9 +87,9 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Animated.cpp" />
+    <ClCompile Include="BatAnim.cpp" />
     <ClCompile Include="Collider.cpp" />
     <ClCompile Include="ColliderEffect.cpp" />
-    <ClCompile Include="DeadAnim.cpp" />
     <ClCompile Include="Debug.cpp" />
     <ClCompile Include="DGame.cpp" />
     <ClCompile Include="Door.cpp" />
@@ -116,9 +116,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animated.h" />
+    <ClInclude Include="BatAnim.h" />
     <ClInclude Include="Collider.h" />
     <ClInclude Include="ColliderEffect.h" />
-    <ClInclude Include="DeadAnim.h" />
     <ClInclude Include="Debug.h" />
     <ClInclude Include="define.h" />
     <ClInclude Include="DGame.h" />

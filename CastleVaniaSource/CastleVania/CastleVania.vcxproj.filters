@@ -13,12 +13,6 @@
     <ClCompile Include="ViewPort.cpp">
       <Filter>Framework\Transform</Filter>
     </ClCompile>
-    <ClCompile Include="dsutil.cpp">
-      <Filter>Framework\Sound</Filter>
-    </ClCompile>
-    <ClCompile Include="dxutil.cpp">
-      <Filter>Framework\Sound</Filter>
-    </ClCompile>
     <ClCompile Include="DSprites.cpp">
       <Filter>FrameworkTHAY</Filter>
     </ClCompile>
@@ -70,9 +64,6 @@
     <ClCompile Include="Animated.cpp">
       <Filter>Utils</Filter>
     </ClCompile>
-    <ClCompile Include="DeadAnim.cpp">
-      <Filter>Utils</Filter>
-    </ClCompile>
     <ClCompile Include="Enemy.cpp">
       <Filter>Framework\Object</Filter>
     </ClCompile>
@@ -81,6 +72,15 @@
     </ClCompile>
     <ClCompile Include="Door.cpp">
       <Filter>Framework\Object\StaticObject</Filter>
+    </ClCompile>
+    <ClCompile Include="dxutil.cpp">
+      <Filter>Framework</Filter>
+    </ClCompile>
+    <ClCompile Include="dsutil.cpp">
+      <Filter>Framework</Filter>
+    </ClCompile>
+    <ClCompile Include="BatAnim.cpp">
+      <Filter>Framework\Object\MoveObject</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -95,12 +95,6 @@
     </ClInclude>
     <ClInclude Include="ViewPort.h">
       <Filter>Framework\Transform</Filter>
-    </ClInclude>
-    <ClInclude Include="dsutil.h">
-      <Filter>Framework\Sound</Filter>
-    </ClInclude>
-    <ClInclude Include="dxutil.h">
-      <Filter>Framework\Sound</Filter>
     </ClInclude>
     <ClInclude Include="DSprites.h">
       <Filter>FrameworkTHAY</Filter>
@@ -150,9 +144,6 @@
     <ClInclude Include="ColliderEffect.h">
       <Filter>Utils</Filter>
     </ClInclude>
-    <ClInclude Include="DeadAnim.h">
-      <Filter>Utils</Filter>
-    </ClInclude>
     <ClInclude Include="Animated.h">
       <Filter>Utils</Filter>
     </ClInclude>
@@ -164,6 +155,15 @@
     </ClInclude>
     <ClInclude Include="Door.h">
       <Filter>Framework\Object\StaticObject</Filter>
+    </ClInclude>
+    <ClInclude Include="dxutil.h">
+      <Filter>Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="dsutil.h">
+      <Filter>Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="BatAnim.h">
+      <Filter>Framework\Object\MoveObject</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -187,9 +187,6 @@
     </Filter>
     <Filter Include="Framework\Transform">
       <UniqueIdentifier>{10b0ca0f-5a4c-495d-8c80-66bb47dc2350}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Framework\Sound">
-      <UniqueIdentifier>{ba3e0a85-7a94-4682-b6cd-f420ba8a6eca}</UniqueIdentifier>
     </Filter>
     <Filter Include="FrameworkTHAY">
       <UniqueIdentifier>{f49b3b3a-21ee-40f7-b0a1-87fcfd0e4328}</UniqueIdentifier>

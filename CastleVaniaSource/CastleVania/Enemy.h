@@ -7,12 +7,11 @@
 class Enemy : public GameObject
 {
 public:
-	Enemy();
-	Enemy(int hp, int dame, int point);
-	~Enemy();
-
 	bool e_isInvincible;
 	static float stopTime;
+	Enemy() {};
+	Enemy(int hp, int dame, int point);
+	~Enemy();
 
 	virtual bool Initialize(LPDIRECT3DDEVICE9 gDevice, const char* file, float x, float y, int tag);
 	virtual void Render(ViewPort *viewPort);
@@ -23,6 +22,7 @@ public:
 
 	virtual int GetHP() { return this->hp; };
 	virtual void SetHP(int hp) { this->hp = hp; };
+	static int GetScore();
 	int GetPoint() { return point; };
 	void Reload();
 	void Respawn(); //cai tu hoan sinh
@@ -32,7 +32,6 @@ public:
 
 	void GravityHandle(float gameTime);
 
-private:
 
 protected:
 	Animated *anim;
@@ -49,6 +48,9 @@ protected:
 	int point;
 	bool isGravity;
 	bool isGrounded;
+
+	static int score;
+	void AddScore();
 
 };
 

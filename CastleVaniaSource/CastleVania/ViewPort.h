@@ -19,7 +19,6 @@ public:
 
 private:
 	D3DXVECTOR3 cameraPosition; //toa do cua camera trong world
-	RECT *region;
 };
 
 //ViewPort::ViewPort()

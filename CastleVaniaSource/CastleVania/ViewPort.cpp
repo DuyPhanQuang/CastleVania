@@ -27,6 +27,7 @@ void ViewPort::SetCameraPosition(float x, float y) {
 	this->cameraPosition.y = y;
 }
 
-D3DXVECTOR3 ViewPort::GetCameraPosition() {
+D3DXVECTOR3 ViewPort::GetCameraPosition()
+{
 	return this->cameraPosition;
 }

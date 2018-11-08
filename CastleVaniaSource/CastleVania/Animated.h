@@ -23,7 +23,7 @@ public:
 	//nhap mot vector bao gom cac toa do theo hang va cot de dua no vao lAnimated
 	void AddAnimated(int animId, std::vector<D3DXVECTOR2> animated);
 
-	//ve frame moi chi so frame
+	//ve frame moi voi chi so frame
 	void Render(Sprite *sprite, bool isLeft, ViewPort *viewPort);
 
 	void DoAnimated(int animId);
@@ -39,7 +39,7 @@ private:
 
 	//lAnimated ---vector chua cac vector anim,
 	//lAnimated.size();
-	std::map<int, std::vector<D3DXVECTOR2>> lAnimated;
+	std::map<int, std::vector<D3DXVECTOR2> > lAnimated;
 
 	//frame se dc hien thi
 	int currentFrame;

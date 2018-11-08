@@ -40,7 +40,7 @@ int InitKeyboard(HWND hwnd) {
 }
 
 int IsKeyDown(int key) {
-	return (IsKeyDown(key) && !(keysBuffer[key] & 0x80));
+	return (keys[key] & 0x80);
 }
 
 void PollKeyboard()

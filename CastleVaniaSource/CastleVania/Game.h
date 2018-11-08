@@ -1,4 +1,6 @@
 #pragma once
+#ifndef GAME_H
+#define GAME_H
 #include "Graphics.h"
 #include "ViewPort.h"
 #include "Input.h"
@@ -8,7 +10,6 @@
 #include "Input.h"
 #include "ScreenManager.h"
 
-#ifndef GAME_H
 class Game
 {
 public:

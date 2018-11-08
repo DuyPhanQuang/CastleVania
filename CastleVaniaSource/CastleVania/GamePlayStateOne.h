@@ -30,6 +30,7 @@ private:
 	GameObject *leftCamera;
 	GameObject *rightCamera;
 
+
 	LPDIRECT3DDEVICE9 gDevice;
 	std::vector<GameObject*> *list;
 };

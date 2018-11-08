@@ -2,6 +2,7 @@
 #include "GameState.h"
 #include "TileMap.h"
 #include "Ground.h"
+#include "BatAnim.h"
 
 class IntroScene : public GameState {
 private:
@@ -13,6 +14,7 @@ private:
 	Ground *ground;
 
 	void InitAnim();
+	BatAnim *bat[2];
 
 	LPDIRECT3DDEVICE9 gDevice;
 public:

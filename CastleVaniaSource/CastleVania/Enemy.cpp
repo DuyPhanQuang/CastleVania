@@ -18,7 +18,19 @@ Enemy::~Enemy() {
 	}
 }
 
+/* STATIC */
+int Enemy::score = 0;
+
+/* STATIC */
 float Enemy::stopTime = 0;
+
+void Enemy::AddScore() {
+	Enemy::score += point;
+}
+
+int Enemy::GetScore() {
+	return score;
+}
 
 bool Enemy::Initialize(LPDIRECT3DDEVICE9 gDevice, const char* file, float x, float y, int tag) {
 	isMoveable = true;
@@ -33,7 +45,6 @@ bool Enemy::Initialize(LPDIRECT3DDEVICE9 gDevice, const char* file, float x, flo
 
 void Enemy::Reload() {
 	isEnable = false;
-	isDead = true;
 	isInCamera = false;
 	trigger = false;
 
@@ -44,12 +55,10 @@ void Enemy::Reload() {
 
 	sprite->SetPosition(positionC);
 	Enemy::SetBox(0, 0, 0, 0);
-	//*region = *regionC
 }
 
 void Enemy::Respawn() {
 	isEnable = true;
-	isDead = false;
 	hp = hpC;
 	e_invincibleTime = E_INVINCIBLE_TIME;
 	e_preHP = hp;
@@ -57,16 +66,13 @@ void Enemy::Respawn() {
 }
 
 void Enemy::Render(ViewPort *viewPort) {
-	if (!isDead && isEnable)
+	if (isEnable)
 		anim->Render(sprite, isLeft, viewPort);
-	/*else if (isDead)
-		deadEffect->Render(viewPort);*/
 	if (isEnable)
 		colliderEffect->Render(viewPort);
 }
 
 void Enemy::Update(float gameTime) {
-	if (!isDead) {
 		if (isEnable == true) {
 			respawnTime = 0;
 			if (hp < e_preHP) {
@@ -74,7 +80,7 @@ void Enemy::Update(float gameTime) {
 				e_preHP = hp;
 			}
 			if (hp <= 0) {
-				isDead = true;
+				AddScore();
 				return;
 			}
 
@@ -98,14 +104,9 @@ void Enemy::Update(float gameTime) {
 				}
 				SetPosition(sprite->GetPosition());
 			}
-
-			deadEffect->SetPosition(sprite->GetPosition().x, sprite->GetPosition().y);
 		}
 		else
 			respawnTime += gameTime;
-	}
-	else
-		UpdateEffect(gameTime);
 	colliderEffect->SetPosition(sprite->GetPosition().x, sprite->GetPosition().y - 20);
 	colliderEffect->Update(gameTime);
 }
@@ -164,8 +165,6 @@ bool Enemy::IsColliderWith(float gameTime, GameObject * object) {
 			return true;
 		}
 		else return false;
-
-
-		return false;
 	}
+	return false;
 }

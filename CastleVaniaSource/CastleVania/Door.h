@@ -1,5 +1,7 @@
 #pragma once
 #include "GameObject.h"
+#include "Animated.h"
+
 
 #define OPENING_DOOR 0
 #define CLOSING_DOOR 1

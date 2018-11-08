@@ -1,5 +1,6 @@
 #include "Simon.h"
 
+int Simon::score = 0;
 
 Simon::Simon(int hp, int damage, int point) : Enemy(hp, damage, point) {
 	respawnTime = 0;
@@ -22,8 +23,8 @@ bool Simon::Initialize(LPDIRECT3DDEVICE9 _gDevice, const char* _file, float _x, 
 	simonSpeed = SPEED; //150
 	canControlKeyboard = true;
 	doorCollideDirection = 0;
-	isGoingThrowDoor = false;
-
+	//isGoingThrowDoor = false;
+	currentDirection = 0;
 	deadTime = 0;
 	this->CreateAnimation();
 
@@ -31,6 +32,7 @@ bool Simon::Initialize(LPDIRECT3DDEVICE9 _gDevice, const char* _file, float _x, 
 	invincibleTime = INVINCIBLE_TIME;
 	nextStage = false;
 
+	noSubWeapon = 1;
 	prevHP = hp;
 	life = 3;
 
@@ -61,7 +63,6 @@ void Simon::Reset(D3DXVECTOR3 pos) {
 	isGrounded = false;
 	velocity.x = 0;
 	action = STAND;
-	isDead = false;
 	SetPosition(pos.x, pos.y + 100);
 	SetEnable(true);
 	isInvincible = false;
@@ -83,39 +84,59 @@ void Simon::CreateAnimation() {
 	//khoi tao anim dung yen
 	std::vector<D3DXVECTOR2> standAnimation;
 	standAnimation.push_back(D3DXVECTOR2(0, 0));
+
+	//Khoi tao animation luc roi
+	std::vector<D3DXVECTOR2> fallAnimation;
+	fallAnimation.push_back(D3DXVECTOR2(0, 0));
+
+	// Khoi tao animation luc di chuyen
+	std::vector<D3DXVECTOR2> moveAnimation;
+	moveAnimation.push_back(D3DXVECTOR2(0, 0));
+	moveAnimation.push_back(D3DXVECTOR2(1, 0));
+	moveAnimation.push_back(D3DXVECTOR2(2, 0));
+	moveAnimation.push_back(D3DXVECTOR2(3, 0));
+
+	//// Khoi tao animation luc ngoi
+	std::vector<D3DXVECTOR2> sitAnimation;
+	sitAnimation.push_back(D3DXVECTOR2(4, 0));
+
+	//// Khoi tao animation luc nhay
+	std::vector<D3DXVECTOR2> jumpAnimation;
+	jumpAnimation.push_back(D3DXVECTOR2(4, 0));
+
+	std::vector<D3DXVECTOR2> deadAnimation;
+	deadAnimation.push_back(D3DXVECTOR2(4, 3));
+
+	std::vector<D3DXVECTOR2> invisibleAnimation;
+	invisibleAnimation.push_back(D3DXVECTOR2(3, 4));
+
+	std::vector<D3DXVECTOR2> standBack;
+	standBack.push_back(D3DXVECTOR2(1, 1));
+
+	// Them cac animation
+	anim->AddAnimated(STAND, standAnimation);
+	anim->AddAnimated(MOVE, moveAnimation);
+	anim->AddAnimated(SIT, sitAnimation);
+	anim->AddAnimated(JUMP, jumpAnimation);
+	anim->AddAnimated(DEAD, deadAnimation);
+	anim->AddAnimated(INVISIBLE, invisibleAnimation);
+	anim->AddAnimated(STAND_BACK, standBack);
+
+	action = STAND; //status
 }
 
 void Simon::Update(float gameTime) {
-	/*if (velocity.y > 0)
+
+	if (velocity.y > 0)
 		currentDirection = 1;
 	else if (velocity < 0)
 		currentDirection = -1;
-*/
-	if (action != SIT && action != HIT_SIT && action != JUMP)
+
+	if (action != SIT && action != JUMP)
 		Enemy::SetBox(30, 0, -15, 0);
 	else
 		Enemy::SetBox(30, 16, -15, 16);
 
-	if (!isDead) {
-		if (isEnable == true) {
-			if (hp < prevHP) {
-				prevHP = hp;
-				isInvincible = true;
-			}
-
-			if (hp <= 0) {
-				isDead = true;
-				respawnTime = 0.0f;
-			}
-
-			sprite->SetPosition(sprite->GetPosition().x + velocity.x * gameTime, sprite->GetPosition().y + velocity.y * gameTime);
-			anim->DoAnimated(action);
-			anim->Update(gameTime);
-			SetPosition(sprite->GetPosition());
-
-		}
-	}
-	else {
 		if (isGrounded) {
 			isInvincible = false;
 			canControlKeyboard = false;
@@ -123,7 +144,6 @@ void Simon::Update(float gameTime) {
 			respawnTime += gameTime;
 			if (respawnTime > 2) {
 				respawnTime = 0.0f;
-				isDead = false;
 				isEnable = false;
 			}
 		}
@@ -132,27 +152,15 @@ void Simon::Update(float gameTime) {
 		}
 		anim->DoAnimated(action);
 		anim->Update(gameTime);
-	}
 
 	//
 	if (action == HIT_SIT || action == HIT_STAND || action == HIT_UP_STAIR)
 		isFighting = !anim->CheckDoAllFrame();
 
-	//
-	if (isInvincible)
-		isSplashing = isSplashing ? false : true;
-	else
-		isSplashing = false;
 }
 
 void Simon::Render(ViewPort *viewPort) {
-	if (!isSplashing) {
-		if (isFighting && (action == HIT_SIT || action == HIT_STAND || action == HIT_UP_STAIR || action == HIT_DOWN_STAIR)) {
-			//
-		}
-		anim->Render(sprite, isLeft, viewPort);
-		//
-	}
+	anim->Render(sprite, isLeft, viewPort);
 }
 
 D3DXVECTOR3 Simon::GetVelocity() {
@@ -203,7 +211,7 @@ void Simon::UpdateKeyboard(float gameTime) {
 				velocity.x = 0;
 			}
 
-			if (IsKeyDown(DIK_LEFT) && !isOnStair) {
+			if (IsKeyDown(DIK_LEFT)) {
 				if (action == JUMP && isGrounded == false)
 					return;
 				isLeft = true;
@@ -213,7 +221,7 @@ void Simon::UpdateKeyboard(float gameTime) {
 				}
 			}
 
-			if (IsKeyDown(DIK_RIGHT && !isOnStair)) {
+			if (IsKeyDown(DIK_RIGHT)) {
 				if (action == JUMP && isGrounded == false)
 					return;
 				isLeft = false;
@@ -255,48 +263,10 @@ void Simon::Stand() {
 //fight
 void Simon::Fight() {
 	isFighting = true;
-	//
-	Fighting();
-}
-
-//fighting
-void Simon::Fighting() {
-	if (!isFighting) {
-		if (action == HIT_SIT) {
-			action = SIT;
-			Sit();
-		}
-		else {
-			if (!isOnStair) {
-				action = STAND;
-				Stand();
-			}
-			else {
-				if (currentDirection > 0)
-					action = STANDING_UP;
-				else action = STANDING_DOWN;
-			}
-		}
-		//
-	}
-	else {
-		//
-		if (isGrounded)
-			velocity.x = 0;
-	}
-}
-
-void Simon::StandOnStair() {
-	velocity.x = 0;
-	velocity.y = 0;
 }
 
 void Simon::KeyBoardHandle(float gameTime) {
-	if (action == HIT_SIT || action == HIT_STAND || action == HIT_UP_STAIR || action == HIT_DOWN_STAIR) {
-		Fighting();
-	}
-	//
-	else UpdateKeyboard(gameTime);
+	 UpdateKeyboard(gameTime);
 }
 
 void Simon::Hurted() {
@@ -312,14 +282,79 @@ void Simon::CheckCollider(float gameTime, std::vector<GameObject*>* listGameObje
 	this->CheckColliderWithGround(gameTime, listGameObject);
 	/*this->CheckColliderWithMovableGround(gameTime, listGameObject);*/
 
-	if (isInvincible == false && !isDead) {
-		/*this->CheckColliderWithEnemy(gameTime, listGameObject);*/
+	if (isInvincible == false) {
+		this->CheckColliderWithEnemy(gameTime, listGameObject);
 	}
 	else {
 		invincibleTime -= gameTime;
-		if (invincibleTime < 0) {
+		if (invincibleTime <= 0) {
 			isInvincible = false;
 			invincibleTime = INVINCIBLE_TIME;
+		}
+	}
+}
+
+void Simon::CheckColliderWithWall(float gameTime, std::vector<GameObject*>* listGameObject) {
+	float normalX = 0;
+	float normalY = 0;
+	float timeCollide;
+
+	for (std::vector<GameObject*>::iterator i = listGameObject->begin(); i != listGameObject->end(); i++) {
+		if ((*i)->GetCollider()->GetTag() == TAG_GROUND) {
+			Box broadphaseBox = collider->GetSweptBoardphaseBox(collider->GetBox(), gameTime);
+			if (collider->AABBCheck(broadphaseBox, (*i)->GetCollider()->GetBox())) {
+				Box tempBox = (*i)->GetCollider()->GetBox();
+				timeCollide = collider->SweptAABB(gameTime, collider->GetBox(), (*i)->GetCollider()->GetBox(), normalX, normalY);
+				if (timeCollide > 0.0f && timeCollide < 1.0f) {
+					if (normalX == 1) {
+						sprite->SetPosition(collider->GetBox().left + gameTime * timeCollide * velocity.x - 15 - 0.1, sprite->GetPosition().y);	
+						sprite->GetPosition().y;
+						return;
+					}
+					if (normalX == -1) {
+						sprite->SetPosition(collider->GetBox().left + gameTime * timeCollide * velocity.x - 15 - 0.1, sprite->GetPosition().y);
+						return;
+					}
+				}
+			}
+		}
+	}
+}
+
+void Simon::CheckColliderWithEnemy(float gameTime, std::vector<GameObject*>* listGameObject) {
+	float normalX = 0;
+	float normalY = 0;
+	float timeCollide;
+
+	for (std::vector<GameObject*>::iterator i = listGameObject->begin(); i != listGameObject->end(); i++) {
+		if (
+			(((*i)->GetCollider()->GetTag() > 0 && (*i)->GetCollider()->GetTag() < 10) || (*i)->GetTag() == 2001 || (*i)->GetTag() == 2000
+				|| (*i)->GetCollider()->GetTag() == -3) && (*i)->IsEnable()
+		) {
+			Box broadphaseBox = collider->GetSweptBoardphaseBox(collider->GetBox(), gameTime);
+			if (collider->AABBCheck(collider->GetBox(), (*i)->GetCollider()->GetBox())) {
+				//
+				if (hp > 2)
+					hp -= 2;
+				else
+					hp = 0;
+				isGrounded = false;
+				isFighting = false;
+				break;
+			}
+			else if (collider->AABBCheck(broadphaseBox, (*i)->GetCollider()->GetBox())) {
+				Box tempBox = (*i)->GetCollider()->GetBox();
+				timeCollide = collider->SweptAABB(gameTime, collider->GetBox(), (*i)->GetCollider()->GetBox(), normalX, normalY);
+				if ((timeCollide > 0.0f && timeCollide < 1.0f)) {
+					//
+					if (hp > 2)
+						hp -= 2;
+					else hp = 0;
+					isGrounded = false;
+					isFighting = false;
+					break;
+				}
+			}
 		}
 	}
 }
@@ -366,10 +401,10 @@ void Simon::CheckColliderWith(float gameTime, GameObject *object) {
 			Box tempBox = object->GetCollider()->GetBox();
 			timeCollide = collider->SweptAABB(gameTime, collider->GetBox(), object->GetCollider()->GetBox(), normalX, normalY);
 			if ((timeCollide >= 0.0f && timeCollide < 1.0f)) {
-				if (normalX == 1 && !isOnStair) {
+				if (normalX == 1) {
 					sprite->SetPosition(collider->GetBox().left + gameTime * timeCollide * velocity.x - 15, sprite->GetPosition().y);
 				}
-				if (normalX == -1 && !isOnStair) {
+				if (normalX == -1) {
 					sprite->SetPosition(collider->GetBox().left + gameTime * timeCollide * velocity.x - 15, sprite->GetPosition().y);
 				}
 			}
@@ -419,6 +454,117 @@ void Simon::CheckColliderWithDoor(float gameTime, std::vector<GameObject*>* list
 			}
 		}
 	}
+}
+
+void Simon::CollideWithDoorHandle(float gameTime, std::vector<GameObject*>* listGameObject, ViewPort *viewPort) {
+	CheckColliderWithDoor(gameTime, listGameObject);
+	if (doorCollideDirection == -1 && !door->IsOccurred()) {
+		if (viewPort->GetCameraPosition().x + GAME_WIDTH / 2 < collideDoor.x) {
+			isGoingThrowDoor = true;
+			Stand();
+			canControlKeyboard = false;
+			viewPort->SetCameraPosition(viewPort->GetCameraPosition().x + 120 * gameTime, viewPort->GetCameraPosition().y);
+		}
+		else {
+			door->isLeft = isLeft;
+			door->SetSpriteXPosition(30);
+			viewPort->SetCameraPosition(viewPort->GetCameraPosition().x, viewPort->GetCameraPosition().y);
+
+			if (!door->IsDoAllFrame()) {
+				door->SetDrawable(true);
+				door->UpdateAnim(gameTime);
+			}
+			else {
+				if (sprite->GetPosition().x < collideDoor.x + 110) {
+					action = MOVE;
+					SetPosition(GetPosition().x + 75 * gameTime, GetPosition().y);
+				}
+				else {
+					Stand();
+					door->SetAction(1);
+
+					if (!door->IsDoAllFrame()) {
+						door->UpdateAnim(gameTime);
+					}
+					else {
+						door->SetDrawable(false);
+						if (viewPort->GetCameraPosition().x < collideDoor.x + 16)
+							viewPort->SetCameraPosition(viewPort->GetCameraPosition().x + 120 * gameTime, viewPort->GetCameraPosition().y);
+						canControlKeyboard = true;
+						doorCollideDirection = 0;
+						door->SetIsOccurred(true);
+						isGoingThrowDoor = false;
+					}
+				}
+			}
+		}
+	}
+	else if (doorCollideDirection == 1 && !door->IsOccurred()) {
+		if (viewPort->GetCameraPosition().x + GAME_WIDTH / 2 > collideDoor.x) {
+			isGoingThrowDoor = true;
+			Stand();
+			canControlKeyboard = false;
+			viewPort->SetCameraPosition(viewPort->GetCameraPosition().x - 120 * gameTime, viewPort->GetCameraPosition().y);
+		}
+		else {
+			door->isLeft = isLeft;
+			door->SetSpriteXPosition(-30);
+			viewPort->SetCameraPosition(viewPort->GetCameraPosition().x, viewPort->GetCameraPosition().y);
+			if (!door->IsDoAllFrame()) {
+				door->UpdateAnim(gameTime);
+				door->SetDrawable(true);
+			}
+			else {
+				if (sprite->GetPosition().x > collideDoor.x - 120) {
+					action = MOVE;
+					SetPosition(GetPosition().x - 75 * gameTime, GetPosition().y);
+				}
+				else {
+					Stand();
+					door->SetAction(MOVE);
+					if (!door->IsDoAllFrame()) {
+						door->UpdateAnim(gameTime);
+						//
+					}
+					else {
+						door->SetDrawable(false);
+						if (viewPort->GetCameraPosition().x + GAME_WIDTH > collideDoor.x - 2)
+							viewPort->SetCameraPosition(viewPort->GetCameraPosition().x - 120 * gameTime, viewPort->GetCameraPosition().y);
+						else {
+							viewPort->SetCameraPosition(viewPort->GetCameraPosition().x, viewPort->GetCameraPosition().y);
+							canControlKeyboard = true;
+							doorCollideDirection = 0;
+							door->SetIsOccurred(true);
+							isGoingThrowDoor = false;
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+bool Simon::IsColliderWithCheckPoint(float gameTime, std::vector<GameObject*>* listGameObject) {
+	float normalX = 0;
+	float normalY = 0;
+	float timeCollide;
+	for (std::vector<GameObject*>::iterator i = listGameObject->begin(); i != listGameObject->end(); i++) {
+		if ((*i)->GetCollider()->GetTag() == TAG_CHECK_POINT) {
+			Box tempBox = (*i)->GetCollider()->GetBox();
+			if (collider->AABBCheck(collider->GetBox(), (*i)->GetCollider()->GetBox())) {
+				return true;
+			}
+			Box broadphaseBox = collider->GetSweptBoardphaseBox(collider->GetBox(), gameTime);
+			if (collider->AABBCheck(broadphaseBox, (*i)->GetCollider()->GetBox())) {
+				Box tempBox = (*i)->GetCollider()->GetBox();
+				timeCollide = collider->SweptAABB(gameTime, collider->GetBox(), (*i)->GetCollider()->GetBox(), normalX, normalY);
+				if ((timeCollide >= 0.0f && timeCollide < 1.0f)) {
+					return true;
+				}
+			}
+		}
+	}
+	return false;
 }
 
 bool Simon::IsColliderWith(float gameTime, GameObject * object) {

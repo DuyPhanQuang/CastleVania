@@ -3,7 +3,6 @@
 #include "Graphics.h"
 #include "ColliderEffect.h"
 //#include "SweptAABBCollider.h"
-#include "DeadAnim.h"
 #include "Collider.h"
 
 class GameObject
@@ -11,12 +10,10 @@ class GameObject
 public:
 	bool isInCamera;
 	bool trigger;
-	RECT *regionC;
-	D3DXVECTOR3 positionC;
 	bool isAdded;
 	bool isDropItem;
 
-	virtual bool Initialize(LPDIRECT3DDEVICE9 gDevie, const char* file, float x, float y, int tag);
+	virtual bool Initialize(LPDIRECT3DDEVICE9 gDevice, const char* file, float x, float y, int tag);
 	virtual bool InitSprite(LPDIRECT3DDEVICE9 gDevice, const char* file, float x, float y);
 	virtual void Render(ViewPort *viewPort);
 	virtual void Update(float gameTime);
@@ -28,19 +25,18 @@ public:
 	Collider* GetCollider();
 
 	ColliderEffect* GetColliderEffect() { return colliderEffect; };
-	virtual void CheckCollider(float gameTime, std::vector<GameObject*> *listGameObject) {}
 
-	float GetWidth() { return width; }
-	float GetHeight() { return height; }
-	D3DXVECTOR3 GetPosition() { return sprite->GetPosition(); }
+	virtual void CheckCollider(float gameTime, std::vector<GameObject*> *listGameObject) {};
+
+	float GetWidth() { return width; };
+	float GetHeight() { return height; };
+	D3DXVECTOR3 GetPosition() { return sprite->GetPosition(); };
+	D3DXVECTOR3 positionC;
 	void SetSize(float width, float height);
 	void SetPosition(D3DXVECTOR3 position);
 	void SetPosition(float x, float y);
 	void SetEnable(bool enable);
-	bool IsEnable() { return isEnable; }
-	void SetDead(bool _isDead) { isDead = _isDead; };
-	bool IsDead() { return isDead; }
-	void UpdateEffect(float gameTime);
+	bool IsEnable() { return isEnable; };
 
 	void SetID(int id) { this->id = id; };
 	int GetID() { return id; };
@@ -63,14 +59,11 @@ protected:
 	Sprite* sprite;
 	/*SweptAABBCollider* sweptAABBCollider;*/
 	Collider* collider;
-	DeadAnim *deadEffect;
 	ColliderEffect *colliderEffect;
-	RECT *region;
 	float width;
 	float height;
 	D3DXVECTOR3 position;
 	bool isEnable;
-	bool isDead;
 	bool isMoveable;
 };
 
