@@ -89,10 +89,10 @@ void Item::Update(float gameTime)
 				switch (itemType)
 				{
 				case ITEM_SMALL_HEART:
-					AddEnergy(1);
+					AddEnergy(2);
 					break;
 				case ITEM_BIG_HEART:
-					AddEnergy(5);
+					AddEnergy(6);
 					break;
 				case ITEM_ROAST:
 					RecoverHP(8);
@@ -228,31 +228,26 @@ void Item::RandomSubWeapon()
 {
 	int percent = rand() % 100; // random theo tỉ lệ
 
-	if (percent < 40)
+	if (percent < 40 || percent < 95)
 	{
 		itemPath = "Resource\\sprites\\Sub_weapons\\AXE.png";
 		itemType = ITEM_AXE;
 	}
-	else if (percent < 80)
-	{
-		itemPath = "Resource\\sprites\\Sub_weapons\\CROSS.png";
-		itemType = ITEM_CROSS;
-	}
+	//else if (percent < 80)
+	//{
+	//	itemPath = "Resource\\sprites\\Sub_weapons\\CROSS.png";
+	//	itemType = ITEM_CROSS;
+	//}
 	else if (percent < 90)
 	{
 		itemPath = "Resource\\sprites\\Sub_weapons\\HOLY_WATER.png";
 		itemType = ITEM_HOLY_WATER;
 	}
-	else if (percent < 95)
-	{
-		itemPath = "Resource\\sprites\\Sub_weapons\\KNIFE.png";
-		itemType = ITEM_KNIFE;
-	}
-	else
-	{
-		itemPath = "Resource\\sprites\\Sub_weapons\\STOP_WATCH.png";
-		itemType = ITEM_STOP_WATCH;
-	}
+	//else
+	//{
+	//	itemPath = "Resource\\sprites\\Sub_weapons\\STOP_WATCH.png";
+	//	itemType = ITEM_STOP_WATCH;
+	//}
 }
 
 void Item::AddEnergy(int energy)

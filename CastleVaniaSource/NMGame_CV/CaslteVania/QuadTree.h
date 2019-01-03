@@ -19,8 +19,6 @@
 #include "Bat.h"
 #include "Door.h"
 #include "SceneCheck.h"
-//#include "Ghost.h"
-#include "Crusher.h"
 
 #define MAX_OBJECT_IN_REGION 1
 #define MAX_LEVEL 2
@@ -31,7 +29,7 @@ protected:
 	LPDIRECT3DDEVICE9 gDevice;
 	ViewPort* viewPort;
 	std::vector<GameObject*> *listObject;
-	
+
 	//////////////////////////////////
 	int id;
 	RECT* region;
@@ -42,7 +40,7 @@ public:
 
 	QuadTree(LPDIRECT3DDEVICE9 gDevice, ViewPort *viewPort);
 	~QuadTree(void);
-	
+
 	void Load(std::string file);
 	void LoadQuad(std::string trace, int pos, float left, float top, float right, float bottom, std::vector<GameObject*> *list);
 	void LoadObject(int id, int type, float x, float y, int width, int height);
@@ -63,4 +61,3 @@ public:
 };
 
 #endif
-

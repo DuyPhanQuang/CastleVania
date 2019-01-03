@@ -162,16 +162,22 @@
     <ClCompile Include="BatAnimation.cpp">
       <Filter>Object\Amimation</Filter>
     </ClCompile>
-    <ClCompile Include="Crusher.cpp">
-      <Filter>Object\Enemy</Filter>
-    </ClCompile>
     <ClCompile Include="Surface.cpp">
       <Filter>Object\Static Object</Filter>
     </ClCompile>
     <ClCompile Include="TitleAnimation.cpp">
       <Filter>Object\Amimation</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Pictures\Saved Pictures\CastleVania-DirectX-master\CaslteVania\Bat.cpp">
+    <ClCompile Include="Merman.cpp">
+      <Filter>Object\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="WaterAnimation.cpp">
+      <Filter>Object\Amimation</Filter>
+    </ClCompile>
+    <ClCompile Include="Batman.cpp">
+      <Filter>Object\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Bat.cpp">
       <Filter>Object\Enemy</Filter>
     </ClCompile>
   </ItemGroup>
@@ -305,9 +311,6 @@
     <ClInclude Include="resource.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Crusher.h">
-      <Filter>Object\Enemy</Filter>
-    </ClInclude>
     <ClInclude Include="Surface.h">
       <Filter>Object\Static Object</Filter>
     </ClInclude>
@@ -315,6 +318,15 @@
       <Filter>Object\Amimation</Filter>
     </ClInclude>
     <ClInclude Include="Bat.h">
+      <Filter>Object\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Merman.h">
+      <Filter>Object\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="WaterAnimation.h">
+      <Filter>Object\Amimation</Filter>
+    </ClInclude>
+    <ClInclude Include="Batman.h">
       <Filter>Object\Enemy</Filter>
     </ClInclude>
   </ItemGroup>

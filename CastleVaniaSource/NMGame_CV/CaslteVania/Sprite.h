@@ -8,7 +8,7 @@
 
 class Sprite
 {
-private: 
+private:
 	LPDIRECT3DTEXTURE9 texture;
 	LPD3DXSPRITE spriteHandle;
 
@@ -50,5 +50,3 @@ public:
 };
 
 #endif // !SPRITE_H
-
-

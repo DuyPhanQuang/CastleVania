@@ -130,15 +130,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\Pictures\Saved Pictures\CastleVania-DirectX-master\CaslteVania\Bat.cpp" />
     <ClCompile Include="Animation.cpp" />
     <ClCompile Include="Axe.cpp" />
+    <ClCompile Include="Bat.cpp" />
     <ClCompile Include="BatAnimation.cpp" />
+    <ClCompile Include="Batman.cpp" />
     <ClCompile Include="Candle.cpp" />
     <ClCompile Include="CheckPoint.cpp" />
     <ClCompile Include="CollideEffect.cpp" />
     <ClCompile Include="Cross.cpp" />
-    <ClCompile Include="Crusher.cpp" />
     <ClCompile Include="DeadAnimation.cpp" />
     <ClCompile Include="Door.cpp" />
     <ClCompile Include="dxutil.cpp" />
@@ -157,6 +157,7 @@
     <ClCompile Include="Item.cpp" />
     <ClCompile Include="Knife.cpp" />
     <ClCompile Include="LargeCandle.cpp" />
+    <ClCompile Include="Merman.cpp" />
     <ClCompile Include="Panther.cpp" />
     <ClCompile Include="Projectile.cpp" />
     <ClCompile Include="QuadTree.cpp" />
@@ -173,6 +174,7 @@
     <ClCompile Include="TitleAnimation.cpp" />
     <ClCompile Include="UI.cpp" />
     <ClCompile Include="ViewPort.cpp" />
+    <ClCompile Include="WaterAnimation.cpp" />
     <ClCompile Include="Whip.cpp" />
     <ClCompile Include="Winmain.cpp" />
     <ClCompile Include="Zombie.cpp" />
@@ -182,11 +184,11 @@
     <ClInclude Include="Axe.h" />
     <ClInclude Include="Bat.h" />
     <ClInclude Include="BatAnimation.h" />
+    <ClInclude Include="Batman.h" />
     <ClInclude Include="Candle.h" />
     <ClInclude Include="CheckPoint.h" />
     <ClInclude Include="CollideEffect.h" />
     <ClInclude Include="Cross.h" />
-    <ClInclude Include="Crusher.h" />
     <ClInclude Include="DeadAnimation.h" />
     <ClInclude Include="define.h" />
     <ClInclude Include="Door.h" />
@@ -205,6 +207,7 @@
     <ClInclude Include="Item.h" />
     <ClInclude Include="Knife.h" />
     <ClInclude Include="LargeCandle.h" />
+    <ClInclude Include="Merman.h" />
     <ClInclude Include="Panther.h" />
     <ClInclude Include="Projectile.h" />
     <ClInclude Include="QuadTree.h" />
@@ -223,6 +226,7 @@
     <ClInclude Include="TitleAnimation.h" />
     <ClInclude Include="UI.h" />
     <ClInclude Include="ViewPort.h" />
+    <ClInclude Include="WaterAnimation.h" />
     <ClInclude Include="Whip.h" />
     <ClInclude Include="Zombie.h" />
   </ItemGroup>

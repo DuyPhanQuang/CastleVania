@@ -102,16 +102,16 @@ void Whip::CheckCollider(float gameTime, std::vector<GameObject*> *listGameObjec
 						check = true;
 					}
 				}
-				//else if ((*i)->GetTag() == 2000)
-				//{
-				//	if (((Batman*)(*i))->isHurted == false)
-				//	{
-				//		((Enemy*)(*i))->SetHP(((Enemy*)(*i))->GetHP() - GetDamage());
-				//		((Batman*)(*i))->isHurted = true;
-				//		(*i)->GetCollideEffect()->SetVisible(true);
-				//		check = true;
-				//	}
-				//}
+				else if ((*i)->GetTag() == 2000)
+				{
+					if (((Batman*)(*i))->isHurted == false)
+					{
+						((Enemy*)(*i))->SetHP(((Enemy*)(*i))->GetHP() - GetDamage());
+						((Batman*)(*i))->isHurted = true;
+						(*i)->GetCollideEffect()->SetVisible(true);
+						check = true;
+					}
+				}
 				else
 					if ((*i)->GetTag() > 0
 						&& (*i)->GetTag() != TAG_GROUND
@@ -147,7 +147,7 @@ void Whip::CheckColliderWith(float gameTime, GameObject *object)
 		if (collider->AABBCheck(collider->GetBox(), object->GetCollider()->GetBox()))
 		{
 			((Enemy*)object)->SetHP(((Enemy*)object)->GetHP() - 2);
-			//((Batman*)object)->isHurted = true;
+			((Batman*)object)->isHurted = true;
 		}
 	}
 }

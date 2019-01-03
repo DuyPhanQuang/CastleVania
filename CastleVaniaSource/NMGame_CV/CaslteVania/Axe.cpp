@@ -85,6 +85,15 @@ void Axe::CheckCollider(float gameTime, std::vector<GameObject*> *listGameObject
 					(*i)->GetCollideEffect()->SetVisible(true);
 				}
 			}
+			else if ((*i)->GetTag() == 2000 && ((Batman*)(*i))->isHurted == false)
+			{
+				if (IsEnable())
+				{
+					((Enemy*)(*i))->SetHP(((Enemy*)(*i))->GetHP() - GetDamage());
+					SetEnable(false);
+					(*i)->GetCollideEffect()->SetVisible(true);
+				}
+			}
 			else
 				if ((*i)->GetTag() == TAG_GROUND)
 				{
@@ -102,6 +111,15 @@ void Axe::CheckCollider(float gameTime, std::vector<GameObject*> *listGameObject
 				if ((timeCollide >= 0.0f && timeCollide < 1.0f))
 				{
 					if ((*i)->GetTag() < 10 && (*i)->GetTag() >= 0 && ((Enemy*)(*i))->e_isInvincible == false)
+					{
+						if (IsEnable())
+						{
+							((Enemy*)(*i))->SetHP(((Enemy*)(*i))->GetHP() - GetDamage());
+							SetEnable(false);
+							(*i)->GetCollideEffect()->SetVisible(true);
+						}
+					}
+					else if ((*i)->GetTag() == 2000 && ((Batman*)(*i))->isHurted == false)
 					{
 						if (IsEnable())
 						{

@@ -56,14 +56,17 @@ void SubWeapon::CheckCollider(float gameTime, std::vector<GameObject*> *listGame
 					(*i)->GetCollideEffect()->SetVisible(true);
 				}
 			}
-			//}
-			/*if ((*i)->GetTag() < 10 && (*i)->GetTag() >= 0)
+			else if ((*i)->GetTag() == 2000)
 			{
-				((Enemy*)(*i))->SetHP(((Enemy*)(*i))->GetHP() - 2);
-				anim->DoAnimation(1);
-				this->sprite->SetPosition(-1000, -1000);
-				(*i)->GetCollideEffect()->SetVisible(true);
-			}*/
+				if (((Batman*)(*i))->isHurted == false)
+				{
+					((Enemy*)(*i))->SetHP(((Enemy*)(*i))->GetHP() - GetDamage());
+					//((Batman*)(*i))->isHurted = true;
+					anim->DoAnimation(1);
+					this->sprite->SetPosition(-1000, -1000);
+					(*i)->GetCollideEffect()->SetVisible(true);
+				}
+			}
 			else
 				if ((*i)->GetTag() == TAG_GROUND)
 				{
@@ -90,13 +93,17 @@ void SubWeapon::CheckCollider(float gameTime, std::vector<GameObject*> *listGame
 							(*i)->GetCollideEffect()->SetVisible(true);
 						}
 					}
-					/*if ((*i)->GetTag() < 10 && (*i)->GetTag() >= 0)
+					else if ((*i)->GetTag() == 2000)
 					{
-						((Enemy*)(*i))->SetHP(((Enemy*)(*i))->GetHP() - 2);
-						anim->DoAnimation(1);
-						this->sprite->SetPosition(-1000, -1000);
-						(*i)->GetCollideEffect()->SetVisible(true);
-					}*/
+						if (((Batman*)(*i))->isHurted == false)
+						{
+							((Enemy*)(*i))->SetHP(((Enemy*)(*i))->GetHP() - GetDamage());
+							//((Batman*)(*i))->isHurted = true;
+							anim->DoAnimation(1);
+							this->sprite->SetPosition(-1000, -1000);
+							(*i)->GetCollideEffect()->SetVisible(true);
+						}
+					}
 					else
 						if ((*i)->GetTag() == TAG_GROUND)
 						{

@@ -8,7 +8,10 @@
 #include "Zombie.h"
 #include "Panther.h"
 #include "UI.h"
+#include "Batman.h"
+#include "Merman.h"
 #include "Bat.h"
+#include "WaterAnimation.h"
 
 class GamePlayStateTwo : public GameState
 {
@@ -20,12 +23,14 @@ private:
 	GameObject *cameraObject;
 	Zombie *zombies[3];
 	Panther *panther[3];
+	Merman *merman[2];
 	Bat *bat;
 	GameObject *leftCamera;
 	GameObject *rightCamera;
 
 	QuadTree *quadTree;
 	UI *ui;
+	Batman *batman;
 
 	bool inBoss;
 
@@ -34,6 +39,9 @@ private:
 	std::vector <GameObject*> *listEnemy;
 
 	LPDIRECT3DDEVICE9 gDevice;
+
+	WaterAnimation *waterEffect[3];
+	bool simonIsFallIntoWater;
 public:
 	GamePlayStateTwo();
 	~GamePlayStateTwo();
@@ -54,8 +62,14 @@ public:
 
 	void InitZombie(LPDIRECT3DDEVICE9 gDevice);
 	void InitPanther(LPDIRECT3DDEVICE9 gDevice);
+	void InitBat(LPDIRECT3DDEVICE9 gDevice);
+	void InitMerman(LPDIRECT3DDEVICE9 gDevice);
 
 	void UpdateZombie(float gameTime);
 	void UpdatePanther(float gameTime);
+	void UpdateBat(float gameTime);
+	void UpdateMerman(float gameTime);
+
+	void UpdateWaterEffect(float gameTime);
 };
 

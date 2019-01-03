@@ -32,7 +32,7 @@ bool GamePlayStateOne::Initialize(Graphics *graphics)
 	cameraObject->Initialize(gDevice, SIMON_SPRITE, viewPort->GetCameraPosition().x, viewPort->GetCameraPosition().y, 5);
 
 	leftCamera = new Ground(2, 450);
-	leftCamera->Initialize(gDevice, "Resource\\sprites\\Ground\\0.png", viewPort->GetCameraPosition().x - 2, viewPort->GetCameraPosition().y, TAG_GROUND);
+	leftCamera->Initialize(gDevice, "Resource\\sprites\\Ground\\0.png", viewPort->GetCameraPosition().x + 10, viewPort->GetCameraPosition().y, TAG_GROUND);
 
 	rightCamera = new Ground(2, 450);
 	rightCamera->Initialize(gDevice, "Resource\\sprites\\Ground\\0.png", viewPort->GetCameraPosition().x + GAME_WIDTH, viewPort->GetCameraPosition().y, TAG_GROUND);
@@ -76,7 +76,7 @@ void GamePlayStateOne::Update(float gameTime)
 	cameraObject->SetRegion(0, GAME_WIDTH, 0, -GAME_HEIGHT);
 
 	//khong cho simon di ra khoi camera
-	leftCamera->SetPosition(viewPort->GetCameraPosition().x - 2, viewPort->GetCameraPosition().y);
+	leftCamera->SetPosition(viewPort->GetCameraPosition().x + 10, viewPort->GetCameraPosition().y);
 	leftCamera->SetBox(leftCamera->GetPosition().x, leftCamera->GetPosition().y, 2, GAME_HEIGHT, 0, 0);
 
 	rightCamera->SetPosition(viewPort->GetCameraPosition().x + GAME_WIDTH, viewPort->GetCameraPosition().y);

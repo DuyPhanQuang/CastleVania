@@ -24,17 +24,17 @@ bool Simon::Initialize(LPDIRECT3DDEVICE9 _gDevice, const char* _file, float _x, 
 	isCollideLeftWall = false;
 	isCollideRightWall = false;
 
-	isCollideWith25 = false;
-	isCollideWith_25 = false;
-	isCollideWith22 = false;
-	isCollideWith_22 = false;
+	isCollideWithBottom = false;
+	isCollideWith_Bottom = false;
+	isCollideWithTop = false;
+	isCollideWith_Top = false;
 	isOnStair = false;
 	simonSpeed = SPEED;
 	currentDirection = 0;
 	currentWeapon = ITEM_CROSS;
 
 	canControlKeyboard = true;
-	
+
 	doorCollideDirection = 0;
 	isGoingThrowDoor = false;
 
@@ -72,7 +72,7 @@ bool Simon::Initialize(LPDIRECT3DDEVICE9 _gDevice, const char* _file, float _x, 
 		stopWatch[i] = new StopWatch();
 		if (!stopWatch[i]->Initialize(_gDevice, "", 0, 0, ITEM_STOP_WATCH))
 			return false;
-		
+
 		subWeapon[i] = cross[i];
 	}
 
@@ -105,10 +105,10 @@ void Simon::Reload()
 	isCollideLeftWall = false;
 	isCollideRightWall = false;
 
-	isCollideWith25 = false;
-	isCollideWith_25 = false;
-	isCollideWith22 = false;
-	isCollideWith_22 = false;
+	isCollideWithBottom = false;
+	isCollideWith_Bottom = false;
+	isCollideWithTop = false;
+	isCollideWith_Top = false;
 	isOnStair = false;
 
 	SetSize(sprite->GetWidth(), sprite->GetHeight());
@@ -136,7 +136,7 @@ void Simon::Reset(D3DXVECTOR3 pos)
 
 void Simon::OnStairHandle(float gameTime)
 {
-	if (isCollideWith25)
+	if (isCollideWithBottom)
 	{
 		if (IsKeyDown(DIK_UP))
 		{
@@ -153,7 +153,7 @@ void Simon::OnStairHandle(float gameTime)
 			}
 		}
 	}
-	else if (isCollideWith_25)
+	else if (isCollideWith_Bottom)
 	{
 		if (IsKeyDown(DIK_UP))
 		{
@@ -170,10 +170,10 @@ void Simon::OnStairHandle(float gameTime)
 			}
 		}
 	}
-	
-	if (isCollideWith22)
+
+	if (isCollideWithTop)
 	{
-		
+
 		if (IsKeyDown(DIK_DOWN))
 		{
 			if (this->sprite->GetPosition().x + 25 > stairCollidePos.x && !isOnStair)
@@ -190,7 +190,7 @@ void Simon::OnStairHandle(float gameTime)
 			}
 		}
 	}
-	else if (isCollideWith_22)
+	else if (isCollideWith_Top)
 	{
 		if (IsKeyDown(DIK_DOWN))
 		{
@@ -392,7 +392,7 @@ void Simon::Update(float gameTime)
 	if (!isOnStair)
 		GravityHandle(gameTime);
 
-	if(action != SIT && action != HIT_SIT && action != JUMP)
+	if (action != SIT && action != HIT_SIT && action != JUMP)
 		Enemy::Setbox(30, 0, -15, 0);
 	else
 		Enemy::Setbox(30, 16, -15, 16);
@@ -453,7 +453,7 @@ void Simon::Update(float gameTime)
 	if (action == HIT_SIT || action == HIT_STAND || action == HIT_UP_STAIR)
 		isFighting = !anim->CheckDoAllFrame();
 
-	for (int i = 0;i < noSubWeapon;i++)
+	for (int i = 0; i < noSubWeapon; i++)
 	{
 		if (!subWeapon[i])
 			subWeapon[i] = subWeapon[0];
@@ -478,7 +478,7 @@ void Simon::Render(ViewPort *viewPort)
 			whip->Render(viewPort);
 		}
 		anim->Render(sprite, isLeft, viewPort);
-		for (int i = 0;i < noSubWeapon;i++)
+		for (int i = 0; i < noSubWeapon; i++)
 			if (subWeapon[i]->IsEnable())
 				subWeapon[i]->Render(viewPort);
 	}
@@ -504,7 +504,7 @@ void Simon::UpdateKeyboard(float gameTime)
 				isGrounded = false;
 			}
 
-			if (isGrounded && velocity.y > 0 && action != JUMP && action != HURTED && !isCollideWith25)
+			if (isGrounded && velocity.y > 0 && action != JUMP && action != HURTED && !isCollideWithBottom)
 			{
 				isOnStair = false;
 				Stand();
@@ -541,7 +541,7 @@ void Simon::UpdateKeyboard(float gameTime)
 
 			if (IsKeyPress(DIK_RCONTROL) || IsKeyPress(DIK_0))
 			{
-				for (int i = 0;i < noSubWeapon;i++)
+				for (int i = 0; i < noSubWeapon; i++)
 					if (!subWeapon[i]->IsEnable() && (energy - subWeapon[i]->GetUseEnergy() >= 0))
 					{
 						energy -= subWeapon[i]->GetUseEnergy();
@@ -587,7 +587,7 @@ void Simon::Throwing()
 {
 	if (anim->GetCurrentFrame() == 2)
 	{
-		for (int i = 0;i < noSubWeapon;i++)
+		for (int i = 0; i < noSubWeapon; i++)
 		{
 			if (!subWeapon[i]->IsEnable())
 			{
@@ -620,7 +620,7 @@ void Simon::Sit()
 void Simon::Stand()
 {
 	//if (action != HURTED)
-	if(action != STAND)
+	if (action != STAND)
 		velocity.x = 0;
 	action = STAND;
 	velocity.y = 0;
@@ -643,7 +643,7 @@ void Simon::Fighting()
 			action = SIT;
 			Sit();
 		}
-		else 
+		else
 		{
 			if (!isOnStair)
 			{
@@ -656,13 +656,13 @@ void Simon::Fighting()
 					action = STANDING_UP;
 				else action = STANDING_DOWN;
 			}
-				
+
 		}
 		whip->SetType(NORMAL_WHIP);
 	}
 	else
 	{
-		if(action == HIT_SIT)
+		if (action == HIT_SIT)
 			whip->SetPosition(D3DXVECTOR3(this->GetPosition().x, this->GetPosition().y, 0), false);
 		else
 			whip->SetPosition(D3DXVECTOR3(this->GetPosition().x, this->GetPosition().y, 0), true);
@@ -691,7 +691,7 @@ void Simon::KeyBoardHandle(float gameTime)
 void Simon::Hurted()
 {
 	velocity.y = JUMP_FORCE - 100;
-	velocity.x = velocity.x = ((isLeft) ? 1 : -1) * simonSpeed;	
+	velocity.x = velocity.x = ((isLeft) ? 1 : -1) * simonSpeed;
 	sprite->SetPosition(sprite->GetPosition().x, sprite->GetPosition().y + 1);
 }
 
@@ -742,8 +742,8 @@ void Simon::CheckCollideWithGround(float gameTime, std::vector<GameObject*>* lis
 					{
 						isGrounded = true;
 						if ((isGrounded && !isOnStair) ||	// Neu nhu cham dat va ko o tren cau thang
-							(isOnStair  && isGrounded && (isCollideWith25 || isCollideWith_25)))	// Neu nhu dang o tren cau thang, di xuong cham chan cau thang
-						{	
+							(isOnStair  && isGrounded && (isCollideWithBottom || isCollideWith_Bottom)))	// Neu nhu dang o tren cau thang, di xuong cham chan cau thang
+						{
 							if (action != SIT && action != HIT_SIT && action != JUMP)
 								sprite->SetPosition(sprite->GetPosition().x,
 									collider->GetBox().top + gameTime * timeCollideGround * velocity.y + 0.1);
@@ -752,7 +752,7 @@ void Simon::CheckCollideWithGround(float gameTime, std::vector<GameObject*>* lis
 									collider->GetBox().top + gameTime * timeCollideGround * velocity.y + 0.1 + 16);
 							velocity.y = 0;
 						}
-				
+
 						return;
 					}
 				}
@@ -768,30 +768,30 @@ void Simon::CheckCollideWithGround(float gameTime, GameObject *gameObject)
 	float normalX = 0;
 	float normalY = 0;
 	float timeCollide;
+	Box tempBox = gameObject->GetCollider()->GetBox();
+	if (collider->AABBCheck(collider->GetBox(), gameObject->GetCollider()->GetBox()))
+	{
+		isGrounded = false;
+	}
+	Box broadphaseBox = collider->GetSweptBoardphaseBox(collider->GetBox(), gameTime);
+	if (collider->AABBCheck(broadphaseBox, gameObject->GetCollider()->GetBox()))
+	{
 		Box tempBox = gameObject->GetCollider()->GetBox();
-		if (collider->AABBCheck(collider->GetBox(), gameObject->GetCollider()->GetBox()))
+		timeCollide = collider->SweptAABB(gameTime, collider->GetBox(), gameObject->GetCollider()->GetBox(), normalX, normalY);
+		if ((timeCollide >= 0.0f && timeCollide < 1.0f))
 		{
-			isGrounded = false;
-		}
-		Box broadphaseBox = collider->GetSweptBoardphaseBox(collider->GetBox(), gameTime);
-		if (collider->AABBCheck(broadphaseBox, gameObject->GetCollider()->GetBox()))
-		{
-			Box tempBox = gameObject->GetCollider()->GetBox();
-			timeCollide = collider->SweptAABB(gameTime, collider->GetBox(), gameObject->GetCollider()->GetBox(), normalX, normalY);
-			if ((timeCollide >= 0.0f && timeCollide < 1.0f))
+			if (normalY == 1)
 			{
-				if (normalY == 1)
-				{
-					sprite->SetPosition(sprite->GetPosition().x,
-						collider->GetBox().top + gameTime * timeCollide * velocity.y + 0.1);
-					velocity.y = 0;
-					isGrounded = true;
-					return;
-				}
+				sprite->SetPosition(sprite->GetPosition().x,
+					collider->GetBox().top + gameTime * timeCollide * velocity.y + 0.1);
+				velocity.y = 0;
+				isGrounded = true;
+				return;
 			}
 		}
-		else
-			isGrounded = false;
+	}
+	else
+		isGrounded = false;
 }
 
 void Simon::CheckCollideWithStair(float gameTime, std::vector<GameObject*>* listGameObject)
@@ -802,6 +802,116 @@ void Simon::CheckCollideWithStair(float gameTime, std::vector<GameObject*>* list
 
 	for (std::vector<GameObject*>::iterator i = listGameObject->begin(); i != listGameObject->end(); i++)
 	{
+		if ((*i)->GetCollider()->GetTag() == 25 || (*i)->GetCollider()->GetTag() == -25) // cham bot
+		{
+			Box tempBox = (*i)->GetCollider()->GetBox();
+			if (collider->AABBCheck(collider->GetBox(), (*i)->GetCollider()->GetBox()))
+			{
+				if ((*i)->GetCollider()->GetTag() == 25)
+				{
+					isCollideWithBottom = true;
+					isCollideWith_Bottom = false;
+					isCollideWithTop = false;
+					isCollideWith_Top = false;
+				}
+				else if ((*i)->GetCollider()->GetTag() == -25)
+				{
+					isCollideWithBottom = false;
+					isCollideWith_Bottom = true;
+					isCollideWithTop = false;
+					isCollideWith_Top = false;
+				}
+				stairCollidePos = (*i)->GetPosition();
+				return;
+			}
+			Box broadphaseBox = collider->GetSweptBoardphaseBox(collider->GetBox(), gameTime);
+			if (collider->AABBCheck(broadphaseBox, (*i)->GetCollider()->GetBox()))
+			{
+				Box tempBox = (*i)->GetCollider()->GetBox();
+				timeCollide = collider->SweptAABB(gameTime, collider->GetBox(), (*i)->GetCollider()->GetBox(), normalX, normalY);
+				if ((timeCollide >= 0.0f && timeCollide < 1.0f))
+				{
+					if ((*i)->GetCollider()->GetTag() == 25)
+					{
+						isCollideWithBottom = true;
+						isCollideWith_Bottom = false;
+						isCollideWithTop = false;
+						isCollideWith_Top = false;
+					}
+					else if ((*i)->GetCollider()->GetTag() == -25)
+					{
+						isCollideWithBottom = false;
+						isCollideWith_Bottom = true;
+						isCollideWithTop = false;
+						isCollideWith_Top = false;
+					}
+					stairCollidePos = (*i)->GetPosition();
+					return;
+				}
+			}
+			else
+			{
+				isCollideWithBottom = false;
+				isCollideWith_Bottom = false;
+			}
+		}
+		else if ((*i)->GetCollider()->GetTag() == 22 || (*i)->GetCollider()->GetTag() == -22) // cham top
+		{
+			Box tempBox = (*i)->GetCollider()->GetBox();
+			if (collider->AABBCheck(collider->GetBox(), (*i)->GetCollider()->GetBox()))
+			{
+				if (action == UP_STAIR)
+					isOnStair = false;
+				if ((*i)->GetCollider()->GetTag() == 22)
+				{
+					isCollideWithTop = true;
+					isCollideWith_Top = false;
+					isCollideWithBottom = false;
+					isCollideWith_Bottom = false;
+				}
+				else if ((*i)->GetCollider()->GetTag() == -22)
+				{
+					isCollideWithTop = false;
+					isCollideWith_Top = true;
+					isCollideWithBottom = false;
+					isCollideWith_Bottom = false;
+				}
+				stairCollidePos = (*i)->GetPosition();
+				return;
+			}
+			Box broadphaseBox = collider->GetSweptBoardphaseBox(collider->GetBox(), gameTime);
+			if (collider->AABBCheck(broadphaseBox, (*i)->GetCollider()->GetBox()))
+			{
+				Box tempBox = (*i)->GetCollider()->GetBox();
+				timeCollide = collider->SweptAABB(gameTime, collider->GetBox(), (*i)->GetCollider()->GetBox(), normalX, normalY);
+				if ((timeCollide >= 0.0f && timeCollide < 1.0f))
+				{
+					if (action == UP_STAIR)
+						isOnStair = false;
+					if ((*i)->GetCollider()->GetTag() == 22)
+					{
+						isCollideWithTop = true;
+						isCollideWith_Top = false;
+						isCollideWithBottom = false;
+						isCollideWith_Bottom = false;
+					}
+					else if ((*i)->GetCollider()->GetTag() == -22)
+					{
+						isCollideWithTop = false;
+						isCollideWith_Top = true;
+						isCollideWithBottom = false;
+						isCollideWith_Bottom = false;
+					}
+					stairCollidePos = (*i)->GetPosition();
+					return;
+				}
+			}
+			else
+			{
+				isCollideWithTop = false;
+				isCollideWith_Top = false;
+			}
+		}
 	}
 }
 
@@ -827,7 +937,7 @@ void Simon::CheckCollideWithWall(float gameTime, std::vector<GameObject*>* listG
 						sprite->SetPosition(collider->GetBox().left + gameTime * timeCollide * velocity.x - 15 + 0.1,
 							sprite->GetPosition().y);
 						return;
-						
+
 					}
 					if (normalX == -1 && !isOnStair)
 					{
@@ -850,15 +960,20 @@ void Simon::CheckCollideWithEnemy(float gameTime, std::vector<GameObject*>* list
 
 		for (std::vector<GameObject*>::iterator i = listGameObject->begin(); i != listGameObject->end(); i++)
 		{
-			if ((((*i)->GetCollider()->GetTag() > 0 && (*i)->GetCollider()->GetTag() < 10) || (*i)->GetTag() == 2001 || (*i)->GetTag() == 2000 || (*i)->GetCollider()->GetTag() == -3 || (*i)->GetTag() == TAG_CRUSHER) && !(*i)->IsDead() && (*i)->IsEnable())
+			if ((((*i)->GetCollider()->GetTag() > 0 && (*i)->GetCollider()->GetTag() < 10) || (*i)->GetTag() == 2001 || (*i)->GetTag() == 2000 || (*i)->GetCollider()->GetTag() == -3) && !(*i)->IsDead() && (*i)->IsEnable())
 			{
 				Box broadphaseBox = collider->GetSweptBoardphaseBox(collider->GetBox(), gameTime);
 				if (collider->AABBCheck(collider->GetBox(), (*i)->GetCollider()->GetBox()))
 				{
+
 					if (hp > 2)
 						hp -= 2;
 					else
 						hp = 0;
+
+					if ((*i)->GetTag() == TAG_BAT)
+						((Enemy*)(*i))->SetDead(true);
+
 					isGrounded = false;
 
 					if (!isOnStair)
@@ -880,7 +995,11 @@ void Simon::CheckCollideWithEnemy(float gameTime, std::vector<GameObject*>* list
 							hp -= 2;
 						else
 							hp = 0;
-						
+
+
+						if ((*i)->GetTag() == TAG_BAT)
+							((Enemy*)(*i))->SetDead(true);
+
 						isGrounded = false;
 
 						if (!isOnStair)
@@ -898,6 +1017,7 @@ void Simon::CheckCollideWithEnemy(float gameTime, std::vector<GameObject*>* list
 
 }
 
+
 bool Simon::IsCollideWith(float gameTime, GameObject * object)
 {
 	return Enemy::IsCollideWith(gameTime, object);
@@ -908,7 +1028,7 @@ void Simon::CheckColliderWith(float gameTime, GameObject *object)
 	float normalX = 0;
 	float normalY = 0;
 	float timeCollide;
-	
+
 	if (object->GetTag() == TAG_GROUND)
 	{
 		Box broadphaseBox = collider->GetSweptBoardphaseBox(collider->GetBox(), gameTime);
@@ -941,6 +1061,7 @@ void Simon::CheckColliderWith(float gameTime, GameObject *object)
 			isGrounded = false;
 			action = HURTED;
 			Hurted();
+			((Batman*)object)->isCollided = true;
 		}
 		else if (collider->AABBCheck(broadphaseBox, object->GetCollider()->GetBox()))
 		{
@@ -952,6 +1073,7 @@ void Simon::CheckColliderWith(float gameTime, GameObject *object)
 				isGrounded = false;
 				action = HURTED;
 				Hurted();
+				((Batman*)object)->isCollided = true;
 			}
 		}
 	}
@@ -961,7 +1083,7 @@ void Simon::WhipCheckCollider(float gameTime, std::vector<GameObject*>* listGame
 {
 	if (isFighting && whip->GetCurrentFrameOfWhip() == 2)
 	{
-		if(typeOfWhip < 3)
+		if (typeOfWhip < 3)
 			whip->SetBox(whip->GetPosition().x + (isLeft ? 50 : 145), whip->GetPosition().y - 22, 45, 5, 0, 0);
 		else
 			whip->SetBox(whip->GetPosition().x + (isLeft ? 20 : 140), whip->GetPosition().y - 22, 70, 5, 0, 0);
@@ -1032,7 +1154,7 @@ void Simon::CollideWithDoorHandle(float gameTime, std::vector<GameObject*>* list
 				{
 					Stand();
 					door->SetAction(1);
-					
+
 					if (!door->IsDoAllFrame())
 					{
 						door->UpdateAnim(gameTime);
@@ -1073,7 +1195,7 @@ void Simon::CollideWithDoorHandle(float gameTime, std::vector<GameObject*>* list
 			door->SetSpriteXPosition(-30);
 			viewPort->SetCameraPosition(viewPort->GetCameraPosition().x,
 				viewPort->GetCameraPosition().y);
-			
+
 			if (!door->IsDoAllFrame())
 			{
 				door->UpdateAnim(gameTime);
@@ -1090,7 +1212,7 @@ void Simon::CollideWithDoorHandle(float gameTime, std::vector<GameObject*>* list
 				{
 					Stand();
 					door->SetAction(1);
-					
+
 					if (!door->IsDoAllFrame())
 					{
 						door->UpdateAnim(gameTime);
@@ -1119,19 +1241,48 @@ void Simon::CollideWithDoorHandle(float gameTime, std::vector<GameObject*>* list
 
 bool Simon::IsColliderWithCheckPoint(float gameTime, std::vector<GameObject*>* listGameObject)
 {
+	return false;
+}
+
+void Simon::CheckCollieWithTopStair(float gameTime, std::vector<GameObject*>* listGameObject)
+{
 	float normalX = 0;
 	float normalY = 0;
 	float timeCollide;
 
 	for (std::vector<GameObject*>::iterator i = listGameObject->begin(); i != listGameObject->end(); i++)
 	{
-		if ((*i)->GetCollider()->GetTag() == TAG_CHECK_POINT)
+		if ((*i)->GetCollider()->GetTag() == TAG_STAIR_TOP || (*i)->GetCollider()->GetTag() == TAG_STAIR_TOP_)
 		{
 			Box tempBox = (*i)->GetCollider()->GetBox();
 			if (collider->AABBCheck(collider->GetBox(), (*i)->GetCollider()->GetBox()))
 			{
-				return true;
+				if (normalY == 1)
+					velocity.y = 0;
 			}
+			Box broadphaseBox = collider->GetSweptBoardphaseBox(collider->GetBox(), gameTime);
+			if (collider->AABBCheck(broadphaseBox, (*i)->GetCollider()->GetBox()))
+			{
+				Box tempBox = (*i)->GetCollider()->GetBox();
+				timeCollide = collider->SweptAABB(gameTime, collider->GetBox(), (*i)->GetCollider()->GetBox(), normalX, normalY);
+				if ((timeCollide >= 0.0f && timeCollide < 1.0f)) {}
+				if (normalY == 1)
+					velocity.y = 0;
+			}
+		}
+	}
+}
+
+void Simon::ChangeSenceStairCheck(float gameTime, std::vector<GameObject*>* listGameObject, ViewPort *viewPort)
+{
+	float normalX = 0;
+	float normalY = 0;
+	float timeCollide;
+
+	for (std::vector<GameObject*>::iterator i = listGameObject->begin(); i != listGameObject->end(); i++)
+	{
+		if ((*i)->GetCollider()->GetTag() == TAG_CHECK_STAIR)
+		{
 			Box broadphaseBox = collider->GetSweptBoardphaseBox(collider->GetBox(), gameTime);
 			if (collider->AABBCheck(broadphaseBox, (*i)->GetCollider()->GetBox()))
 			{
@@ -1139,22 +1290,57 @@ bool Simon::IsColliderWithCheckPoint(float gameTime, std::vector<GameObject*>* l
 				timeCollide = collider->SweptAABB(gameTime, collider->GetBox(), (*i)->GetCollider()->GetBox(), normalX, normalY);
 				if ((timeCollide >= 0.0f && timeCollide < 1.0f))
 				{
-					return true;
+					if (normalY == 1)
+					{
+						if (action == DOWN_STAIR)
+						{
+							if (velocity.x < 0)
+							{
+								sprite->SetPosition(sprite->GetPosition().x,
+									sprite->GetPosition().y - 30);
+								viewPort->SetCameraPosition(viewPort->GetCameraPosition().x,
+									viewPort->GetCameraPosition().y - 186);
+							}
+							else if (velocity.x > 0)
+							{
+								sprite->SetPosition(sprite->GetPosition().x + 10,
+									sprite->GetPosition().y - 30);
+								viewPort->SetCameraPosition(viewPort->GetCameraPosition().x,
+									viewPort->GetCameraPosition().y - 186);
+							}
+						}
+					}
+					else if (normalY == -1)
+					{
+						if (action == UP_STAIR)
+						{
+							if (velocity.x < 0)
+							{
+								velocity.x = 0;
+								sprite->SetPosition(sprite->GetPosition().x - 28,
+									sprite->GetPosition().y + 66);
+								viewPort->SetCameraPosition(viewPort->GetCameraPosition().x,
+									viewPort->GetCameraPosition().y + 373);
+							}
+							else if (velocity.x > 0)
+							{
+								velocity.x = 0;
+								sprite->SetPosition(sprite->GetPosition().x,
+									sprite->GetPosition().y + 66);
+								viewPort->SetCameraPosition(viewPort->GetCameraPosition().x,
+									viewPort->GetCameraPosition().y + 385);
+							}
+						}
+					}
 				}
 			}
 		}
 	}
-	return false;
-}
-
-void Simon::CheckCollieWithTopStair(float gameTime, std::vector<GameObject*>* listGameObject)
-{
-
 }
 
 void Simon::SetTypeOfSubWeapon(int subType)
 {
-	for (int i = 0;i < 3;i++)
+	for (int i = 0; i < 3; i++)
 	{
 		switch (subType)
 		{

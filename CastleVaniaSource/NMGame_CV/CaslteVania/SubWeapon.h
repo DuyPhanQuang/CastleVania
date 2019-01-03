@@ -1,6 +1,7 @@
 #pragma once
 #include "GameObject.h"
 #include "Enemy.h"
+#include "Batman.h"
 
 class SubWeapon : public GameObject
 {

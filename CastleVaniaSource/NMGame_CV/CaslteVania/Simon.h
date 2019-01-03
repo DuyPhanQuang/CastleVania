@@ -5,6 +5,7 @@
 #include "Collider.h"
 #include "Enemy.h"
 #include "Whip.h"
+#include "Batman.h"
 #include "HolyWater.h"
 #include "Cross.h"
 #include "Axe.h"
@@ -43,19 +44,19 @@ private:
 	bool isCollideRightWall;
 
 	D3DXVECTOR3 stairCollidePos;
-	bool isCollideWith25; // 25 la tag cua chan cau thang
-	bool isCollideWith_25; // -25 la tag cua chan cau thang tu phai qua trai
-	bool isCollideWith22; // 22 la tag cua top cau thang LTR
-	bool isCollideWith_22; // -22 la tag cua cau thang RTL
+	bool isCollideWithBottom; // la co xd chan cau thang tu trai qua phai
+	bool isCollideWith_Bottom; // la co xd chan cau thang tu phai qua trai
+	bool isCollideWithTop; // la co xd top cau thang tu trai qua phai
+	bool isCollideWith_Top; // la co xac dinh top cau thang tu phai qua trai 
 
 	bool isInvincible;
 	float invincibleTime;
 	int directionX = 0, directionY = 0;
-	
+
 	int typeOfSubWeapon;
 	int typeOfWhip;
 	int energy;
-	
+
 	bool isSplashing;
 
 	bool canControlKeyboard;
@@ -111,6 +112,7 @@ public:
 	void CheckCollideWithGround(float gameTime, GameObject *gameObject);
 	void CheckCollideWithGround(float gameTime, std::vector<GameObject*> * listGameObject);
 	void CheckCollider(float gameTime, std::vector<GameObject*> *listGameObject);
+	void CheckCollideWithStair(float gameTime, std::vector<GameObject*> *listGameObject);
 	void CheckCollideWithWall(float gameTime, std::vector<GameObject*>* listGameObject);
 	void CheckCollideWithEnemy(float gameTime, std::vector<GameObject*>* listGameObject);
 	bool IsCollideWith(float gameTime, GameObject *object);
@@ -118,17 +120,16 @@ public:
 	void WhipCheckCollider(float gameTime, std::vector<GameObject*>* listGameObject);
 	void CheckColliderWithDoor(float gameTime, std::vector<GameObject*>* listGameObject);
 	bool IsColliderWithCheckPoint(float gameTime, std::vector<GameObject*>* listGameObject);
-	void CheckCollideWithStair(float gameTime, std::vector<GameObject*> *listGameObject);
 	void CheckCollieWithTopStair(float gameTime, std::vector<GameObject*>* listGameObject);
 	void ChangeSenceStairCheck(float gameTime, std::vector<GameObject*>* listGameObject, ViewPort *viewPort);
-	
+
 	void CollideWithDoorHandle(float gameTime, std::vector<GameObject*>* listGameObject, ViewPort* viewPort);
 
 	Whip* GetWhip() { return whip; }
 
 	bool GetIsFighting() { return isFighting; }
 
-	bool GetIsLeft() {return isLeft;}
+	bool GetIsLeft() { return isLeft; }
 
 	void SetIsLeft(bool status) { isLeft = status; }
 
@@ -139,7 +140,7 @@ public:
 	int GetAction() { return action; }
 
 	void SetAction(int action) { this->action = action; }
-	
+
 	int GetNoSubWeapon() { return noSubWeapon; }
 
 	SubWeapon **GetSubWeapon(int i) { return subWeapon; }

@@ -30,16 +30,9 @@
 #define ZOMBIE_SPRITE		"Resource\\sprites\\Enemies\\ZOMBIE.png"
 #define PANTHER_SPRITE		"Resource\\sprites\\Enemies\\PANTHER.png"
 #define BATMAN_SPRITE		"Resource\\sprites\\Bosses\\VAMPIRE_BAT.png"
-#define MEDUSA_SPRITE		"Resource\\sprites\\Bosses\\MEDUSA.png"
 #define MERMAN_SPRITE		"Resource\\sprites\\Enemies\\MERMAN.png"
 #define BAT_SPRITE			"Resource\\sprites\\Enemies\\BAT.png"
-#define BLUE_BAT_SPRITE		"Resource\\sprites\\Enemies\\BLUE_BAT.png"
-#define BONE_PILLAR_SPRITE		"Resource\\sprites\\Enemies\\BONE_PILLAR.png"
-#define MEDUSA_HEAD_SPRITE			"Resource\\sprites\\Enemies\\MEDUSA_HEAD.png"
-#define GHOST_SPRITE				"Resource\\sprites\\Enemies\\GHOST.png"
 #define SURFACE_SPRITE		"Resource\\sprites\\Ground\\7.png"
-#define ROPE_SPRITE			"Resource\\sprites\\Ground\\rope.png"
-#define SNAKE_SPRITE		"Resource\\sprites\\Enemies\\SNAKE.png"
 
 /*SUB WEAPON SPRITE*/
 #define HOLY_WATER_SPRITE_ACTION		"Resource\\sprites\\Sub_weapons\\HOLY_WATER_ACTION.png"
@@ -56,9 +49,6 @@
 
 #define LEVEL_TWO_BG		"Resource\\sprites\\lv2.s"
 #define	LEVEL_TWO_MATRIX_BG	"Resource\\sprites\\lv2.b"
-
-#define LEVEL_THREE_BG		"Resource\\sprites\\lv3.s"
-#define	LEVEL_THREE_MATRIX_BG	"Resource\\sprites\\lv3.b"
 
 #define GROUND_TEST		"Resource\\sprites\\ground_test.png"
 
@@ -113,10 +103,6 @@
 #define TAG_MERMAN				3
 #define TAG_PROJECTILE			-3
 #define TAG_BAT					4
-#define TAG_SPEAR_GUARD			5
-#define TAG_MEDUSA_HEAD			6
-#define TAG_GHOST				7
-#define TAG_BONE_PILLAR			8
 
 #define TAG_CANDLE				11
 #define TAG_GROUND				12
@@ -126,7 +112,6 @@
 #define TAG_STAIR_TOP			14
 #define TAG_STAIR_TOP_			-14
 #define TAG_CRUSHER				17
-#define TAG_MOVEABLE_GROUND		19
 #define TAG_DOOR				20
 #define TAG_LARGE_CANDLE		10
 
@@ -140,12 +125,10 @@
 #define TAG_AXE				35
 #define TAG_KNIFE			37
 
-#define GAME_MENU_STATE			-1
 #define GAME_INTRO_SCENE		0
 #define GAME_LOSE_LAYER			4
 #define	GAME_PLAY_STATE_ONE		1
 #define GAME_PLAY_STATE_TWO		2
-#define GAME_PLAY_STATE_THREE	3
 
 // MOSTLY USED IN ITEM CLASS //////
 #define ITEM_SMALL_HEART	1000

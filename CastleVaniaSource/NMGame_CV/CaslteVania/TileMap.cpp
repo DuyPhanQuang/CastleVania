@@ -40,6 +40,7 @@ TileMap::~TileMap()
 	}
 }
 
+
 void TileMap::LoadListTileFromFile(const char *file)
 {
 	fstream pFile;
@@ -76,6 +77,7 @@ void TileMap::LoadListTileFromFile(const char *file)
 		i++;
 	}
 }
+
 
 void TileMap::Draw(ViewPort *viewPort)
 {

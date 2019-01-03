@@ -78,20 +78,34 @@ void Cross::CheckCollider(float gameTime, std::vector<GameObject*> *listGameObje
 	float normalY = 0;
 	float timeCollide;
 
-	for (std::vector<GameObject*>::iterator i = listGameObject->begin(); i != listGameObject->end(); i++)
-	{
+	for (std::vector<GameObject*>::iterator i = listGameObject->begin(); i != listGameObject->end(); i++) {
 		Box tempBox = (*i)->GetCollider()->GetBox();
-		if (collider->AABBCheck(collider->GetBox(), (*i)->GetCollider()->GetBox()))
-		{
-			/*if ((*i)->GetTag() < 10 && (*i)->GetTag() >= 0 && ((Enemy*)(*i))->e_isInvincible == false)
-			{
-				if (IsEnable())
-				{
+		if (collider->AABBCheck(collider->GetBox(), tempBox)) {
+			if ((*i)->GetTag() >= 0 && (*i)->GetTag() < 10 && ((Enemy*)(*i))->e_isInvincible == false) {
+				if (IsEnable()) {
 					((Enemy*)(*i))->SetHP(((Enemy*)(*i))->GetHP() - GetDamage());
-					isCollidedWithEnemy = true;
+					SetEnable(false);
 					(*i)->GetCollideEffect()->SetVisible(true);
 				}
-			} */
+				else if ((*i)->GetTag() == 2000 && ((Batman*)(*i))->isHurted == false) {
+					if (IsEnable()) {
+						((Enemy*)(*i))->SetHP(((Enemy*)(*i))->GetHP() - GetDamage());
+						SetEnable(false);
+						(*i)->GetCollideEffect()->SetVisible(true);
+					}
+				}
+				else
+					if ((*i)->GetTag() == TAG_GROUND) {
+						if (IsEnable() && normalY == 1)
+							SetEnable(false);
+					}
+			}
+		}
+		else {
+			Box broadphaseBox = collider->GetSweptBoardphaseBox(collider->GetBox(), gameTime);
+			if (collider->AABBCheck(broadphaseBox, collider->GetBox())) {
+				/*timeCollide = collider->SweptAABB()*/
+			}
 		}
 	}
 }

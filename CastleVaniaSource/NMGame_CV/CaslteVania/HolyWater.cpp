@@ -96,17 +96,17 @@ void HolyWater::CheckCollider(float gameTime, std::vector<GameObject*> *listGame
 					(*i)->GetCollideEffect()->SetVisible(true);
 				}
 			}
-			/*if (((*i)->GetTag() < 10 && (*i)->GetTag() >= 0) || (*i)->GetTag() >= 2000)
+			else if ((*i)->GetTag() == 2000 && ((Batman*)(*i))->isHurted == false)
 			{
 				if (IsEnable())
 				{
-					((Enemy*)(*i))->SetHP(((Enemy*)(*i))->GetHP() - 2);
+					((Enemy*)(*i))->SetHP(((Enemy*)(*i))->GetHP() - GetDamage());
 					action = 1;
 					velocity.x = 0;
 					velocity.y = 0;
 					(*i)->GetCollideEffect()->SetVisible(true);
 				}
-			}*/
+			}
 			else
 				if ((*i)->GetTag() == TAG_GROUND)
 				{
@@ -128,6 +128,17 @@ void HolyWater::CheckCollider(float gameTime, std::vector<GameObject*> *listGame
 				if ((timeCollide >= 0.0f && timeCollide < 1.0f))
 				{
 					if ((*i)->GetTag() < 10 && (*i)->GetTag() >= 0 && ((Enemy*)(*i))->e_isInvincible == false)
+					{
+						if (IsEnable())
+						{
+							((Enemy*)(*i))->SetHP(((Enemy*)(*i))->GetHP() - GetDamage());
+							action = 1;
+							velocity.x = 0;
+							velocity.y = 0;
+							(*i)->GetCollideEffect()->SetVisible(true);
+						}
+					}
+					else if ((*i)->GetTag() == 2000 && ((Batman*)(*i))->isHurted == false)
 					{
 						if (IsEnable())
 						{

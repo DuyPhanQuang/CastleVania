@@ -12,7 +12,7 @@ QuadTree::~QuadTree(void)
 {
 	for (std::vector<GameObject*>::iterator i = listObject->begin(); i != listObject->end(); i++)
 	{
-		delete[] (*i);
+		delete[](*i);
 	}
 
 	delete[] listObject;
@@ -24,7 +24,7 @@ void QuadTree::Load(std::string file)
 {
 	std::ifstream input;
 	input.open(file, std::ifstream::in);
-	
+
 	std::string checkEnd;
 	std::string trace;
 
@@ -32,7 +32,7 @@ void QuadTree::Load(std::string file)
 	int type;
 	float x;
 	float y;
-	int width; 
+	int width;
 	int height;
 
 	float left;
@@ -45,14 +45,14 @@ void QuadTree::Load(std::string file)
 	int count = 0;
 
 	while (input >> checkEnd)
-	{ 
-		if (checkEnd == "END") 
+	{
+		if (checkEnd == "END")
 		{
 			count++;
 			continue;
 		}
 
-		if (count == 0) 
+		if (count == 0)
 		{
 			id = atoi(checkEnd.c_str());
 			input >> type >> x >> y >> width >> height;
@@ -69,7 +69,7 @@ void QuadTree::Load(std::string file)
 				input >> objectID;
 				list->push_back(mapObject[objectID]);
 			}
-			
+
 			trace.clear();
 
 			while (true)
@@ -83,7 +83,7 @@ void QuadTree::Load(std::string file)
 					id = id / 4;
 				}
 			}
-			
+
 			trace = trace + "e";
 
 			LoadQuad(trace, 0, left, top, right, bottom, list);
@@ -183,29 +183,20 @@ void QuadTree::LoadObject(int id, int type, float x, float y, int width, int hei
 		object->SetBox(x, y, 32, 32, 0.0f, 0.0f);
 		mapObject[id] = object;
 	}
-	else if (type == 130)
-	{
-		GameObject *object;
-		object = new Stair();
-		object->Initialize(gDevice, "Resource\\sprites\\Ground\\stair.png", x, y, TAG_STAIR);
-		object->SetID(id);
-		object->SetBox(x, y, 32, 32, 0.0f, 0.0f);
-		mapObject[id] = object;
-	}
-	else if (type == 140)
-	{
-		GameObject *object;
-		object = new Stair();
-		object->Initialize(gDevice, "Resource\\sprites\\Ground\\top_stair.png", x, y, TAG_STAIR_TOP);
-		object->SetID(id);
-		object->SetBox(x, y, 32, 32, 0.0f, 0.0f);
-		mapObject[id] = object;
-	}
 	else if (type == TAG_STAIR_)
 	{
 		GameObject *object;
 		object = new Stair();
 		object->Initialize(gDevice, "Resource\\sprites\\Ground\\3_.png", x, y, type);
+		object->SetID(id);
+		object->SetBox(x, y, 32, 32, 0.0f, 0.0f);
+		mapObject[id] = object;
+	}
+	else if (type == 130)
+	{
+		GameObject *object;
+		object = new Stair();
+		object->Initialize(gDevice, "Resource\\sprites\\Ground\\stair.png", x, y, TAG_STAIR);
 		object->SetID(id);
 		object->SetBox(x, y, 32, 32, 0.0f, 0.0f);
 		mapObject[id] = object;
@@ -241,16 +232,16 @@ void QuadTree::LoadObject(int id, int type, float x, float y, int width, int hei
 	{
 		GameObject *object;
 		object = new GameObject();
-		object->Initialize(gDevice, "Resource\\sprites\\Ground\\stair_top.png", x, y, type);
+		object->Initialize(gDevice, "Resource\\sprites\\Ground\\4.png", x, y, type);
 		object->SetID(id);
 		object->SetBox(x, y, 32, 32, 0.0f, 0.0f);
 		mapObject[id] = object;
 	}
-	else if (type == 25 || type == -25) // O duong dat di len cau thang
+	else if (type == 25 || type == -25) // O duoi dat di len cau thang
 	{
 		GameObject *object;
 		object = new GameObject();
-		object->Initialize(gDevice, "Resource\\sprites\\Ground\\stair.png", x, y, type);
+		object->Initialize(gDevice, "Resource\\sprites\\Ground\\3.png", x, y, type);
 		object->SetID(id);
 		object->SetBox(x, y, 32, 32, 0.0f, 0.0f);
 		mapObject[id] = object;
@@ -259,19 +250,11 @@ void QuadTree::LoadObject(int id, int type, float x, float y, int width, int hei
 	{
 		GameObject *object;
 		object = new SceneCheck();
-		object->Initialize(gDevice, "Resource\\sprites\\Ground\\13.png", x, y, type);
+		object->Initialize(gDevice, "Resource\\sprites\\Ground\\NULL.png", x, y, type);
 		object->SetID(id);
 		object->SetBox(x - 15, y, 96, 32 - 30, 0.0f, 0.0f);
 		mapObject[id] = object;
 	}
-	//else if (type == TAG_CRUSHER)
-	//{
-	//	Crusher *object;
-	//	object = new Crusher();
-	//	object->Initialize(gDevice, x, y);
-	//	object->SetID(id);
-	//	mapObject[id] = object;
-	//}
 	else if (type == 27)
 	{
 		GameObject *object;
@@ -344,7 +327,7 @@ void QuadTree::Update(float gameTime)
 	{
 		(*i)->Update(gameTime);
 	}
-	
+
 }
 
 void QuadTree::Render()
@@ -464,8 +447,8 @@ void QuadTree::GetObjectList(std::vector<GameObject*> *returnList, RECT *region)
 	{
 		for (std::vector<GameObject*>::iterator i = this->listObject->begin(); i != this->listObject->end(); i++)
 			/*if ((*i)->isAdded == false) {*/
-				returnList->push_back(*i);
-				/*(*i)->isAdded = true;
-			}*/
+			returnList->push_back(*i);
+		/*(*i)->isAdded = true;
+	}*/
 	}
 }

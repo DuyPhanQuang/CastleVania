@@ -88,7 +88,7 @@ void Panther::Jump()
 
 void Panther::Move()
 {
-	velocity.x = isLeft ? -200 : 200;
+	velocity.x = isLeft ? -250 : 250;
 }
 
 void Panther::CheckCollider(float gameTime, std::vector<GameObject*> *listObject)

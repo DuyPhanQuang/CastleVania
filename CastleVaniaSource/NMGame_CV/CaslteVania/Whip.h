@@ -2,6 +2,7 @@
 #include "Enemy.h"
 #include "Animation.h"
 #include "DeadAnimation.h"
+#include "Batman.h"
 
 #define NORMAL_WHIP		0
 #define VAMPIRE_KILLER	1
