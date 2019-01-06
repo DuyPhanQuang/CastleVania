@@ -92,7 +92,6 @@ void GamePlayStateOne::Update(float gameTime)
 			{
 				Item *item = new Item();
 				item->Initialize(gDevice, (*i)->GetPosition().x, (*i)->GetPosition().y);
-				//item->Initialize(gDevice, (*i)->GetPosition().x, (*i)->GetPosition().y, ITEM_UPGRADE_1, 10);
 				listItem->push_back(item);
 				(*i)->isDropItem = true;
 			}

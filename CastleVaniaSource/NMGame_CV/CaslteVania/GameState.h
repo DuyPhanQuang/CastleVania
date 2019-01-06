@@ -59,11 +59,7 @@ public:
 
 		if (!simon->IsEnable())
 		{
-			//simonDeadTime -= gameTime;
-			//if (simonDeadTime <= 0)
 			{
-			//	simonDeadTime = 1.5;
-			//	simon->SetAction(DEAD);
 				simon->Reset(simonCheckpoint);
 				viewPort->SetCameraPosition(cameraCheckpoint.x, cameraCheckpoint.y);
 			}

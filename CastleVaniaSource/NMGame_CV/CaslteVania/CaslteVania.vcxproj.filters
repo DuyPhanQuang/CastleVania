@@ -171,14 +171,14 @@
     <ClCompile Include="Merman.cpp">
       <Filter>Object\Enemy</Filter>
     </ClCompile>
-    <ClCompile Include="WaterAnimation.cpp">
-      <Filter>Object\Amimation</Filter>
-    </ClCompile>
     <ClCompile Include="Batman.cpp">
       <Filter>Object\Enemy</Filter>
     </ClCompile>
     <ClCompile Include="Bat.cpp">
       <Filter>Object\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="WaterAnimation.cpp">
+      <Filter>Object\Amimation</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -323,11 +323,11 @@
     <ClInclude Include="Merman.h">
       <Filter>Object\Enemy</Filter>
     </ClInclude>
-    <ClInclude Include="WaterAnimation.h">
-      <Filter>Object\Amimation</Filter>
-    </ClInclude>
     <ClInclude Include="Batman.h">
       <Filter>Object\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="WaterAnimation.h">
+      <Filter>Object\Amimation</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

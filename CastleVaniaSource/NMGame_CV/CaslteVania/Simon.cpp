@@ -129,7 +129,7 @@ void Simon::Reset(D3DXVECTOR3 pos)
 	SetEnable(true);
 	isInvincible = false;
 	invincibleTime = INVINCIBLE_TIME;
-	SetHP(16);
+	SetHP(32);
 	prevHP = hp;
 	canControlKeyboard = true;
 }
@@ -495,7 +495,7 @@ void Simon::UpdateKeyboard(float gameTime)
 	{
 		if ((action != HURTED || isGrounded == true) && !(action == HIT_STAND && isGrounded == false))
 		{
-			if (IsKeyPress(DIK_SPACE) && isGrounded)
+			if (IsKeyPress(DIK_S) && isGrounded)
 			{
 				if (action == SIT || action == JUMP)
 					return;
@@ -523,7 +523,7 @@ void Simon::UpdateKeyboard(float gameTime)
 				Sit();
 			}
 
-			if (IsKeyDown(DIK_LCONTROL))
+			if (IsKeyDown(DIK_A))
 			{
 				if (isOnStair)
 				{
@@ -539,7 +539,7 @@ void Simon::UpdateKeyboard(float gameTime)
 				return;
 			}
 
-			if (IsKeyPress(DIK_RCONTROL) || IsKeyPress(DIK_0))
+			if ((IsKeyPress(DIK_Z)))
 			{
 				for (int i = 0; i < noSubWeapon; i++)
 					if (!subWeapon[i]->IsEnable() && (energy - subWeapon[i]->GetUseEnergy() >= 0))

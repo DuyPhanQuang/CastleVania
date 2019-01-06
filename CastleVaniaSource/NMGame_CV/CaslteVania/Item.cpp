@@ -259,9 +259,9 @@ void Item::RecoverHP(int hp)
 {
 	int hpAfterHealed = simon->GetHP() + hp;
 
-	if (hpAfterHealed > 16) {
-		simon->SetHP(16);
-		simon->SetPrevHP(16);
+	if (hpAfterHealed > 32) {
+		simon->SetHP(32);
+		simon->SetPrevHP(32);
 	}	
 	else {
 		simon->SetHP(hpAfterHealed);

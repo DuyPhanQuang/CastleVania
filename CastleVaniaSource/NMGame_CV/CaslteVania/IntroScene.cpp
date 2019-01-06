@@ -47,7 +47,7 @@ bool IntroScene::Initialize(Graphics *graphics)
 	bat[0]->Initialize(gDevice, "Resource\\sprites\\bat.png", 410, 400);
 	bat[1]->Initialize(gDevice, "Resource\\sprites\\bat.png", 57, 200);
 
-	simon = new Simon(16, 0, 0);
+	simon = new Simon(32, 0, 0);
 	if (!simon->Initialize(gDevice, SIMON_SPRITE, 610, 91, TAG_SIMON))
 		return false;
 	simon->SetIsLeft(true);
